@@ -1,0 +1,186 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(*)",
+      "Glob(*)",
+      "Grep(*)",
+      "Bash(pytest:*)",
+      "Bash(python -m pytest:*)",
+      "Bash(npm test:*)",
+      "Bash(npm run test:*)",
+      "Bash(yarn test:*)",
+      "Bash(pnpm test:*)",
+      "Bash(pnpm run test:*)",
+      "Bash(ruff check:*)",
+      "Bash(ruff format:*)",
+      "Bash(mypy:*)",
+      "Bash(eslint:*)",
+      "Bash(tsc --noEmit:*)",
+      "Bash(git status:*)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(git branch:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(wc:*)",
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(echo:*)"
+    ],
+    "ask": [
+      "Edit(*)",
+      "Write(*)",
+      "Bash(rm:*)",
+      "Bash(rm -rf:*)",
+      "Bash(docker restart:*)",
+      "Bash(docker stop:*)",
+      "Bash(docker rm:*)",
+      "Bash(systemctl restart:*)",
+      "Bash(systemctl stop:*)",
+      "Bash(kubectl delete:*)",
+      "Bash(kubectl rollout:*)",
+      "Bash(npm run deploy:*)",
+      "Bash(yarn deploy:*)",
+      "Bash(pnpm run deploy:*)",
+      "Bash(pnpm deploy:*)",
+      "Bash(git push:*)",
+      "Bash(git reset:*)",
+      "Bash(pip install:*)",
+      "Bash(npm install:*)",
+      "Bash(yarn add:*)",
+      "Bash(pnpm install:*)",
+      "Bash(pnpm add:*)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./secrets/**)",
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(**/secrets/**)",
+      "Edit(./.env)",
+      "Edit(./.env.*)",
+      "Edit(./secrets/**)",
+      "Edit(**/.env)",
+      "Edit(**/.env.*)",
+      "Edit(**/secrets/**)",
+      "Write(./.env)",
+      "Write(./.env.*)",
+      "Write(./secrets/**)",
+      "Write(**/.env)",
+      "Write(**/.env.*)",
+      "Write(**/secrets/**)",
+      "Bash(rm -rf /)",
+      "Bash(rm -rf /*)"
+    ]
+  },
+  "thinkingMode": "always",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "_description": "Safety gate: blocks destructive bash commands (rm -rf /, ~, etc.) and sensitive file modifications (.env, id_rsa, credentials)",
+        "matcher": "Bash|Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/safety_validator.py"
+          }
+        ]
+      },
+      {
+        "_description": "Block sensitive files with detailed error message",
+        "matcher": "Read|Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "FILE=$(jq -r '.tool_input.file_path // empty'); echo \"$FILE\" | grep -qE '(\\.env|secrets|credentials)' && { echo \"BLOCKED: Access denied to sensitive file: $FILE\" >&2; exit 2; } || exit 0"
+          }
+        ]
+      },
+      {
+        "_description": "Audit trail: logs all PreToolUse events to .claude/audit_logs/yyyymmdd_audit.jsonl",
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/audit_logger.py"
+          }
+        ]
+      },
+      {
+        "_description": "Skill validator: soft enforcement warnings for skill files",
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/skill-validator.py"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "_description": "Auto-format files after Write/Edit (Ruff for Python, Prettier for JS/TS)",
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/auto-format.sh"
+          }
+        ]
+      },
+      {
+        "_description": "Audit trail: logs all PostToolUse events to .claude/audit_logs/yyyymmdd_audit.jsonl",
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/audit_logger.py"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "_description": "Notification sound",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/notification-sound.sh"
+          }
+        ]
+      },
+      {
+        "_description": "Audit trail: logs all Stop events to .claude/audit_logs/yyyymmdd_audit.jsonl",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/audit_logger.py"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "_description": "Skill suggester: analyzes prompts to suggest relevant skills",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/skill-suggester.py"
+          }
+        ]
+      },
+      {
+        "_description": "Audit trail: logs all user prompt submissions to .claude/audit_logs/yyyymmdd_audit.jsonl",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/audit_logger.py"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,163 @@
+{
+  "version": "1.0",
+  "description": "Skill activation triggers for Claude Code. Controls when skills automatically suggest or block actions.",
+  "skills": {
+    "python-dev": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "high",
+      "description": "Python development guide emphasizing KISS, YAGNI, SOLID principles with TDD-driven testing",
+      "promptTriggers": {
+        "keywords": [
+          "python",
+          "pytest",
+          "unittest",
+          "tdd",
+          "solid",
+          "kiss principle",
+          "yagni",
+          "type hints",
+          "ruff",
+          "mypy",
+          "pyproject.toml",
+          "requirements.txt",
+          "conftest",
+          "fixture"
+        ],
+        "intentPatterns": [
+          "(write|create|add).*?(test|function|class).*?python",
+          "(write|create|add).*?python.*?(test|function|class)",
+          "refactor.*?python",
+          "python.*?refactor",
+          "dependency injection",
+          "single responsibility",
+          "test.*(first|driven)",
+          "(fix|debug).*pytest",
+          "type.*(hint|annotation)",
+          "arrange.act.assert",
+          "(write|create).*?\\.py"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "*.py",
+          "**/*.py",
+          "**/conftest.py",
+          "**/pyproject.toml",
+          "**/requirements*.txt",
+          "**/setup.py"
+        ],
+        "pathExclusions": [
+          "**/.venv/**",
+          "**/venv/**",
+          "**/node_modules/**",
+          "**/__pycache__/**",
+          "**/.claude/**"
+        ]
+      }
+    },
+    "skill-developer": {
+      "type": "workflow",
+      "enforcement": "suggest",
+      "priority": "high",
+      "description": "Meta-skill for creating and managing Claude Code skills",
+      "promptTriggers": {
+        "keywords": [
+          "skill system",
+          "create skill",
+          "add skill",
+          "new skill",
+          "skill triggers",
+          "skill rules",
+          "hook system",
+          "skill development",
+          "skill-rules.json",
+          "SKILL.md",
+          "skill activation"
+        ],
+        "intentPatterns": [
+          "(how do|how does|explain).*?skill",
+          "(create|add|modify|build|write).*?skill",
+          "skill.*?(work|trigger|activate|system|structure|architecture)",
+          "(debug|fix).*?skill.*?activ"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          ".claude/skills/**",
+          "**/SKILL.md",
+          ".claude/skills/skill-rules.json"
+        ],
+        "pathExclusions": []
+      }
+    },
+    "k8s-dev": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "high",
+      "description": "Kubernetes development guide for cloud-agnostic deployments with Azure Phase 1",
+      "promptTriggers": {
+        "keywords": [
+          "kubernetes",
+          "k8s",
+          "deployment",
+          "service",
+          "configmap",
+          "secret",
+          "pvc",
+          "persistent volume",
+          "helm",
+          "manifest",
+          "pod",
+          "container",
+          "ingress",
+          "namespace",
+          "kubectl",
+          "clusterip",
+          "statefulset",
+          "aks",
+          "azure kubernetes"
+        ],
+        "intentPatterns": [
+          "(create|write|generate|add).*?(k8s|kubernetes)",
+          "(create|write|generate).*?deployment",
+          "(create|write|generate).*?service",
+          "(create|write|generate).*?manifest",
+          "(deploy|setup).*?(k8s|kubernetes)",
+          "kubernetes.*?(deploy|config|setup)",
+          "helm.*?(chart|template|values)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/k8s/**",
+          "**/helm/**",
+          "**/kubernetes/**",
+          "**/infra/**/*.yaml",
+          "**/infra/**/*.yml",
+          "**/deployment*.yaml",
+          "**/deployment*.yml",
+          "**/*-deployment.yaml",
+          "**/values*.yaml"
+        ],
+        "pathExclusions": [
+          "**/node_modules/**",
+          "**/.venv/**"
+        ]
+      }
+    }
+  },
+  "notes": {
+    "enforcement_types": {
+      "suggest": "Skill suggestion appears but doesn't block execution",
+      "block": "Requires skill to be used before proceeding (guardrail)",
+      "warn": "Shows warning but allows proceeding"
+    },
+    "priority_levels": {
+      "critical": "Highest - Always trigger when matched",
+      "high": "Important - Trigger for most matches",
+      "medium": "Moderate - Trigger for clear matches",
+      "low": "Optional - Trigger only for explicit matches"
+    }
+  }
+}
