@@ -30,6 +30,7 @@ This repository provides a **portable Claude Code configuration** that you can d
 | **Author** | **Tomasz Guściora** |
 | **Based on** | [claude-code-infrastructure-showcase](https://github.com/diet103/claude-code-infrastructure-showcase) by diet103 |
 | **Original Discussion** | [Claude Code is a Beast - Tips from 6 Months of Use](https://www.reddit.com/r/ClaudeAI/comments/1oivjvm/claude_code_is_a_beast_tips_from_6_months_of/) |
+| **Hooks Guide** | [The Production-Ready Claude Code Hooks Guide](https://alirezarezvani.medium.com/the-production-ready-claude-code-hooks-guide-7-hooks-that-actually-matter-823587f9fc61) by Alireza Rezvani |
 
 ---
 
