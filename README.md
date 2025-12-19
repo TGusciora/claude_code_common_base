@@ -1,4 +1,4 @@
-<![CDATA[<div align="center">
+<div align="center">
 
 # 🤖 Claude Code Portable Setup
 
@@ -298,4 +298,3 @@ This project is available for personal and commercial use. Feel free to adapt it
 *Making AI-assisted development safer, smarter, and more productive*
 
 </div>
-]]>
