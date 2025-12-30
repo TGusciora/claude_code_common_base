@@ -1,3 +1,9 @@
+# .gitignore
+
+# removing all folders in root directory, as this is for tutorial purposes only
+dev_docs/**
+docs/**
+
 # local history
 .history/
 
