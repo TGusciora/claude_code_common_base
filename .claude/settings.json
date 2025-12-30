@@ -85,7 +85,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": ".claude/hooks/safety_validator.py"
+            "command": "cd \"$(git rev-parse --show-toplevel)\" && .claude/hooks/safety_validator.py"
           }
         ]
       },
@@ -105,7 +105,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": ".claude/hooks/audit_logger.py"
+            "command": "cd \"$(git rev-parse --show-toplevel)\" && .claude/hooks/audit_logger.py"
           }
         ]
       },
@@ -115,7 +115,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": ".claude/hooks/skill-validator.py"
+            "command": "cd \"$(git rev-parse --show-toplevel)\" && .claude/hooks/skill-validator.py"
           }
         ]
       }
@@ -127,7 +127,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": ".claude/hooks/auto-format.sh"
+            "command": "cd \"$(git rev-parse --show-toplevel)\" && .claude/hooks/auto-format.sh"
           }
         ]
       },
@@ -137,7 +137,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": ".claude/hooks/audit_logger.py"
+            "command": "cd \"$(git rev-parse --show-toplevel)\" && .claude/hooks/audit_logger.py"
           }
         ]
       }
@@ -148,7 +148,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": ".claude/hooks/notification-sound.sh"
+            "command": "cd \"$(git rev-parse --show-toplevel)\" && .claude/hooks/notification-sound.sh"
           }
         ]
       },
@@ -157,7 +157,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": ".claude/hooks/audit_logger.py"
+            "command": "cd \"$(git rev-parse --show-toplevel)\" && .claude/hooks/audit_logger.py"
           }
         ]
       }
@@ -168,7 +168,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": ".claude/hooks/skill-suggester.py"
+            "command": "cd \"$(git rev-parse --show-toplevel)\" && .claude/hooks/skill-suggester.py"
           }
         ]
       },
@@ -177,7 +177,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": ".claude/hooks/audit_logger.py"
+            "command": "cd \"$(git rev-parse --show-toplevel)\" && .claude/hooks/audit_logger.py"
           }
         ]
       }
