@@ -48,8 +48,9 @@ Domain-specific knowledge modules that Claude loads when relevant:
 | `python-dev` | Python with KISS, YAGNI, SOLID + TDD |
 | `k8s-dev` | Kubernetes cloud-agnostic patterns |
 | `skill-developer` | Meta-skill for creating skills |
+| `discovery` | Idea-to-PRD pipeline with 5 phases |
 
-**Activation:** `/python-dev`, `/k8s-dev`, `/skill-dev`
+**Activation:** `/python-dev`, `/k8s-dev`, `/skill-dev`, `/discovery`
 
 </td>
 <td width="50%" valign="top">
@@ -176,10 +177,14 @@ claude
 │   ├── k8s-dev.md
 │   ├── skill-dev.md
 │   ├── dev-docs.md
-│   └── dev-docs-update.md
+│   ├── dev-docs-update.md
+│   └── discovery.md        # Discovery-to-PRD pipeline
 │
 ├── 📂 scripts/             # Helper scripts
-│   └── next-task-number.sh
+│   ├── next-task-number.sh
+│   └── discovery_agent/    # Discovery pipeline orchestrator
+│       ├── discovery_agent.py
+│       └── prompts/        # Phase-specific prompts
 │
 ├── 📂 audit_logs/          # Action audit trail
 │
@@ -228,6 +233,48 @@ claude
 - **Destructive Command Blocking** - `rm -rf /`, `rm -rf ~` are blocked
 - **Sensitive File Protection** - `.env`, `credentials`, `id_rsa` access denied
 - **Full Audit Trail** - Every action logged to `.claude/audit_logs/`
+
+---
+
+## 🔍 Discovery Pipeline
+
+Transform ideas into structured Product Requirements Documents through a 5-phase pipeline.
+
+### How It Works
+
+| Phase | Mode | Description |
+|-------|------|-------------|
+| 1. **Interview** | Interactive | Socratic questioning to understand your requirements |
+| 2. **Research** | Autonomous | Web search to validate and expand findings |
+| 3. **Synthesis** | Autonomous | Combine insights into structured PRD draft |
+| 4. **Review** | Autonomous | Adversarial critical review with lens scoring |
+| 5. **Consolidation** | Autonomous | Synthesize review into final PRD |
+
+### Usage
+
+```bash
+# Start new discovery (interactive)
+/discovery
+
+# Start with description (skips prompt)
+/discovery -d "A mobile app for tracking expenses"
+
+# Resume from specific phase
+/discovery --resume research
+/discovery --resume synthesis
+
+# List available phases
+/discovery --list
+```
+
+### Output
+
+All artifacts saved to `docs/discovery/<project-name>/`:
+- `01-interview.md` - Interview notes
+- `02-research.md` - Research findings
+- `03-prd-draft.md` - PRD draft
+- `04-prd-review.md` - Critical review with lens scores
+- `05-prd-final.md` - Final consolidated PRD
 
 ---
 
