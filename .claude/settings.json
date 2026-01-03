@@ -1,6 +1,9 @@
 {
   "permissions": {
     "allow": [
+      "Read(**/.env.example)",
+      "Edit(**/.env.example)",
+      "Write(**/.env.example)",
       "Read(*)",
       "Glob(*)",
       "Grep(*)",
@@ -27,7 +30,9 @@
       "Bash(wc:*)",
       "Bash(find:*)",
       "Bash(grep:*)",
-      "Bash(echo:*)"
+      "Bash(echo:*)",
+      "Bash(.claude/scripts/*)",
+      "Bash(mkdir:*)"
     ],
     "ask": [
       "Edit(*)",
@@ -54,24 +59,35 @@
       "Bash(pnpm add:*)"
     ],
     "deny": [
-      "Read(./.env)",
-      "Read(./.env.*)",
-      "Read(./secrets/**)",
       "Read(**/.env)",
-      "Read(**/.env.*)",
-      "Read(**/secrets/**)",
-      "Edit(./.env)",
-      "Edit(./.env.*)",
-      "Edit(./secrets/**)",
+      "Read(**/.env.local)",
+      "Read(**/.env.development)",
+      "Read(**/.env.production)",
+      "Read(**/.env.test)",
       "Edit(**/.env)",
-      "Edit(**/.env.*)",
-      "Edit(**/secrets/**)",
-      "Write(./.env)",
-      "Write(./.env.*)",
-      "Write(./secrets/**)",
+      "Edit(**/.env.local)",
+      "Edit(**/.env.development)",
+      "Edit(**/.env.production)",
+      "Edit(**/.env.test)",
       "Write(**/.env)",
-      "Write(**/.env.*)",
+      "Write(**/.env.local)",
+      "Write(**/.env.development)",
+      "Write(**/.env.production)",
+      "Write(**/.env.test)",
+      "Read(**/secrets/**)",
+      "Edit(**/secrets/**)",
       "Write(**/secrets/**)",
+      "Read(**/terraform.tfvars)",
+      "Read(**/secrets.tfvars)",
+      "Read(**/terraform.tfstate)",
+      "Read(**/terraform.tfstate.backup)",
+      "Read(**/.terraform/**)",
+      "Edit(**/terraform.tfvars)",
+      "Edit(**/secrets.tfvars)",
+      "Edit(**/terraform.tfstate)",
+      "Write(**/terraform.tfvars)",
+      "Write(**/secrets.tfvars)",
+      "Write(**/terraform.tfstate)",
       "Bash(rm -rf /)",
       "Bash(rm -rf /*)"
     ]
@@ -95,7 +111,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "FILE=$(jq -r '.tool_input.file_path // empty'); echo \"$FILE\" | grep -qE '(\\.env|secrets|credentials)' && { echo \"BLOCKED: Access denied to sensitive file: $FILE\" >&2; exit 2; } || exit 0"
+            "command": "FILE=$(jq -r '.tool_input.file_path // empty'); echo \"$FILE\" | grep -qE '\\.example$' && exit 0; echo \"$FILE\" | grep -qE '(\\.env|secrets|credentials|terraform\\.tfvars|terraform\\.tfstate|\\.terraform/)' && { echo \"BLOCKED: Access denied to sensitive file: $FILE\" >&2; exit 2; } || exit 0"
           }
         ]
       },
