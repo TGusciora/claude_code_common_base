@@ -80,7 +80,7 @@ Use slash commands directly:
 
 ### k8s-dev
 
-**Purpose:** Kubernetes development with cloud-agnostic patterns (Azure Phase 1)
+**Purpose:** Kubernetes development with cloud-agnostic patterns
 
 **Files:**
 - `SKILL.md` - Main guide with patterns and templates

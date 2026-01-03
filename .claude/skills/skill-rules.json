@@ -95,7 +95,7 @@
       "type": "domain",
       "enforcement": "suggest",
       "priority": "high",
-      "description": "Kubernetes development guide for cloud-agnostic deployments with Azure Phase 1",
+      "description": "Kubernetes development guide for cloud-agnostic deployments",
       "promptTriggers": {
         "keywords": [
           "kubernetes",

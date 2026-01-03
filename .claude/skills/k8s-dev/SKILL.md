@@ -1,6 +1,6 @@
 ---
 name: k8s-dev
-description: Kubernetes development guide for cloud-agnostic deployments. Covers manifest structure, resource limits, labeling standards, and provider-specific patterns (Azure Phase 1).
+description: Kubernetes development guide for cloud-agnostic deployments. Covers manifest structure, resource limits, labeling standards, and provider-specific patterns (Azure).
 ---
 
 # Kubernetes Development Guide
@@ -9,8 +9,8 @@ description: Kubernetes development guide for cloud-agnostic deployments. Covers
 
 Guide Kubernetes resource creation following team standards: cloud-agnostic patterns with provider-specific configurations. Ensures consistent manifests across all deployments.
 
-> **Detailed Standards:** See [K8S_OPERATIONS.md](.claude/repo_specific/K8S_OPERATIONS.md) (create project-specific K8s operations doc)
-> **Current Phase:** Azure deployment (Phase 1)
+> **Detailed Standards:** See [K8S_OPERATIONS.md](.claude/repo_specific/K8S_OPERATIONS.md)
+> **Current deployment:** Azure AKS with cert-manager TLS
 
 ## When to Use This Skill
 
@@ -114,7 +114,7 @@ All resources must have all 5 labels:
 
 ## Cloud-Specific Patterns
 
-### Azure (Phase 1)
+### Azure (Current)
 
 ```yaml
 # Storage
@@ -124,13 +124,13 @@ storageClassName: azure-managed-disk
 image: molsageengine.azurecr.io/my-app:latest
 ```
 
-### GCP (Future)
+### GCP
 
 ```yaml
 storageClassName: standard  # or pd-ssd
 ```
 
-### AWS (Future)
+### AWS
 
 ```yaml
 storageClassName: gp2  # or gp3
