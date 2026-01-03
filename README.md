@@ -127,7 +127,15 @@ chmod +x .claude/hooks/*.sh
 chmod +x .claude/scripts/*.sh
 ```
 
-### 3. Start Using
+### 3. Configure Git Hooks
+
+```bash
+git config core.hooksPath .githooks
+```
+
+This enables the pre-commit hook that runs ruff linting on Python files.
+
+### 4. Start Using
 
 ```bash
 # Launch Claude Code in your project

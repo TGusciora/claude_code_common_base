@@ -1,0 +1,42 @@
+#!/bin/bash
+#
+# Git pre-commit hook for Python linting with Ruff
+#
+# Behavior:
+#   1. Get list of staged Python files
+#   2. Run ruff format (auto-fix formatting)
+#   3. Run ruff check --fix (auto-fix linting issues)
+#   4. Re-stage auto-fixed files
+#   5. Run final ruff check (block if errors remain)
+#
+
+set -e
+
+# Get staged Python files (exclude deleted)
+STAGED_PY_FILES=$(git diff --cached --name-only --diff-filter=d | grep '\.py$' || true)
+
+# Exit early if no Python files
+if [ -z "$STAGED_PY_FILES" ]; then
+    exit 0
+fi
+
+echo "Running ruff on staged Python files..."
+
+# Auto-format
+echo "$STAGED_PY_FILES" | xargs ruff format 2>/dev/null || true
+
+# Auto-fix linting issues
+echo "$STAGED_PY_FILES" | xargs ruff check --fix 2>/dev/null || true
+
+# Re-stage fixed files
+echo "$STAGED_PY_FILES" | xargs git add
+
+# Final check - block if errors remain
+if ! echo "$STAGED_PY_FILES" | xargs ruff check; then
+    echo ""
+    echo "ERROR: Ruff found unfixable linting errors."
+    echo "Please fix the issues above and try again."
+    exit 1
+fi
+
+echo "Ruff checks passed."
