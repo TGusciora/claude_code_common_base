@@ -98,7 +98,7 @@ dev_docs/
 └── archive/         # Completed work
 ```
 
-**Commands:** `/dev-docs`, `/dev-docs-update`
+**Commands:** `/dev-docs`, `/dev-docs-update`, `/continue-dev`, `/commit-git`
 
 </td>
 </tr>
@@ -150,6 +150,64 @@ claude
 
 ---
 
+## 🔄 Development Workflow
+
+A complete idea-to-commit workflow using the built-in commands:
+
+```
+┌─────────────┐    ┌─────────────┐    ┌──────────────┐    ┌─────────────┐
+│  /discovery │ -> │  /dev-docs  │ -> │ /continue-dev│ -> │ /commit-git │
+│             │    │             │    │              │    │             │
+│ Create PRD  │    │ Create dev  │    │ Implement    │    │ Commit +    │
+│ from idea   │    │ task docs   │    │ tasks        │    │ push        │
+└─────────────┘    └─────────────┘    └──────────────┘    └─────────────┘
+                                             ↑                   │
+                                             │    pre-commit     │
+                                             │    hook lints     │
+                                             │    Python files   │
+                                             └───────────────────┘
+```
+
+### Step 1: Create PRD from Idea
+```bash
+/discovery -d "A REST API for managing user subscriptions"
+```
+Runs 5-phase pipeline: Interview → Research → Synthesis → Review → Consolidation
+
+Output: `docs/discovery/<project>/05-prd-final.md`
+
+### Step 2: Create Development Docs
+```bash
+/dev-docs "Implement subscription API from PRD"
+```
+Creates numbered task folder with:
+- `NNNN_task-name-plan.md` - Implementation strategy
+- `NNNN_task-name-context.md` - Key files and decisions
+- `NNNN_task-name-tasks.md` - Actionable checklist
+
+### Step 3: Implement Tasks
+```bash
+/continue-dev
+```
+- Scans `dev_docs/active/` for lowest numbered task
+- Reads all three docs files with extended thinking
+- Implements incomplete tasks in order
+- Updates progress in context and tasks files
+
+### Step 4: Commit and Push
+```bash
+git add .
+/commit-git
+```
+- Analyzes staged changes
+- Generates conventional commit message
+- Allows editing before commit
+- Automatically pushes to remote
+
+**Pre-commit Hook:** Ruff linting runs automatically on staged Python files before commit.
+
+---
+
 ## 📁 Directory Structure
 
 ```
@@ -186,7 +244,9 @@ claude
 │   ├── skill-dev.md
 │   ├── dev-docs.md
 │   ├── dev-docs-update.md
-│   └── discovery.md        # Discovery-to-PRD pipeline
+│   ├── discovery.md        # Discovery-to-PRD pipeline
+│   ├── continue-dev.md     # Resume task implementation
+│   └── commit-git.md       # Conventional commits + push
 │
 ├── 📂 scripts/             # Helper scripts
 │   ├── next-task-number.sh
