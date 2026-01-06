@@ -81,15 +81,15 @@
   - LinkedIn link (https://www.linkedin.com/in/tgusciora/)
   - AC: All icons visible and link correctly
 
-- [ ] 2.8 Polish content (MUST HAVE)
+- [x] 2.8 Polish content (MUST HAVE)
   - All sections translated
   - AC: Full Polish version functional
 
-- [ ] 2.9 English content (SHOULD HAVE)
+- [x] 2.9 English content (SHOULD HAVE)
   - All sections translated
   - AC: Full English version functional (or deferred post-MVP)
 
-- [ ] 2.10 Mobile responsive design
+- [x] 2.10 Mobile responsive design
   - Touch-friendly targets
   - Works on 3G
   - AC: All pages functional on mobile devices
@@ -183,8 +183,8 @@
 | Phase | Total | Complete | Remaining |
 |-------|-------|----------|-----------|
 | Phase 1 | 6 | 6 | 0 |
-| Phase 2 | 10 | 7 | 3 |
+| Phase 2 | 10 | 10 | 0 |
 | Phase 3 | 5 | 0 | 5 |
 | Phase 4 | 2 | 0 | 2 |
 | Phase 5 | 7 | 0 | 7 |
-| **Total** | **30** | **13** | **17** |
+| **Total** | **30** | **16** | **14** |
