@@ -81,22 +81,22 @@ create_worktree() {
     local worktree_path=$(get_worktree_path "$task_num")
 
     # Ensure worktrees directory exists
-    ensure_worktrees_dir
+    ensure_worktrees_dir >&2
 
     # Check if worktree already exists
     if worktree_exists "$worktree_path"; then
-        log_info "Worktree already exists at $worktree_path"
+        log_info "Worktree already exists at $worktree_path" >&2
         echo "$worktree_path"
         return 0
     fi
 
     # Check if branch exists
     if git -C "$PROJECT_ROOT" show-ref --verify --quiet "refs/heads/$branch_name"; then
-        log_info "Branch $branch_name exists, creating worktree..."
-        git -C "$PROJECT_ROOT" worktree add "$worktree_path" "$branch_name"
+        log_info "Branch $branch_name exists, creating worktree..." >&2
+        git -C "$PROJECT_ROOT" worktree add "$worktree_path" "$branch_name" >&2
     else
-        log_info "Creating new branch $branch_name with worktree..."
-        git -C "$PROJECT_ROOT" worktree add -b "$branch_name" "$worktree_path"
+        log_info "Creating new branch $branch_name with worktree..." >&2
+        git -C "$PROJECT_ROOT" worktree add -b "$branch_name" "$worktree_path" >&2
     fi
 
     echo "$worktree_path"
