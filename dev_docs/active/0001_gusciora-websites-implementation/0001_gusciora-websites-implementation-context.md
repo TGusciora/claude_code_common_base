@@ -5,6 +5,64 @@
 
 ---
 
+## SESSION PROGRESS - 2026-01-06 (Iteration 9 - Local Verification)
+
+**Session ID:** 20260106-151703-26314
+**Branch:** ralph/0001_gusciora-websites-implementation
+
+**Selected Tasks:** Local verification of 5.3 and 5.4
+- Rationale: These tasks can be partially validated through code review
+
+**Test-First Summary:**
+- Business goals defined: Yes - Verify responsive design and preference persistence implementation
+- Acceptance criteria: All components have mobile breakpoints, touch targets 44px+, localStorage keys match across sites
+- Tests written: 0 (code review verification)
+- Tests passing: N/A
+- Regression suite: N/A (builds verified)
+
+**Verified:**
+- [x] 5.4 Mobile responsiveness: All 7 components have @media queries (640px/768px/480px breakpoints)
+- [x] Touch targets: Footer 44px, Training icons 48px, buttons ~48px+ (1rem padding)
+- [x] 5.3 localStorage: Both sites use same keys (`gusciora-theme`, `gusciora-lang`)
+
+**IMPORTANT FINDING - localStorage Limitation:**
+The context file previously stated "All sites share parent domain gusciora.pl, so localStorage keys are naturally shared" - this is **incorrect**.
+
+**localStorage is origin-specific:**
+- `gusciora.pl` has its own localStorage
+- `tomasz.gusciora.pl` has its own localStorage
+- These DO NOT share data automatically
+
+**Current behavior:**
+- Theme/language preferences persist **within** each site ✓
+- Preferences do NOT sync **across** subdomains ✗
+
+**Future fix options (if cross-subdomain sharing is required):**
+1. Use cookies with `domain=.gusciora.pl` instead of localStorage
+2. Use a shared iframe with postMessage for cross-origin communication
+3. Accept independent preferences per subdomain (simpler, may be acceptable)
+
+**Task Progress Update:**
+| Task | Status | Notes |
+|------|--------|-------|
+| 5.3 localStorage | Code Verified | localStorage works per-site; cross-subdomain requires additional work |
+| 5.4 Mobile responsive | Code Verified | All breakpoints and touch targets present |
+| 5.1 HTTPS | Blocked | Requires VPS |
+| 5.2 www redirects | Blocked | Requires VPS |
+| 5.5 Form submission | Blocked | Requires Formspark ID + VPS |
+| 5.6 Booking | Blocked | Requires Cal.com username + VPS |
+| 5.7 Deployment | Blocked | Requires user VPS access |
+
+**Builds Verified:**
+- tomasz-gusciora-pl: 2 pages in 432ms ✓
+- gusciora-pl: 2 pages in 356ms ✓
+
+**Next Steps:**
+Remaining 5 tasks (5.1, 5.2, 5.5, 5.6, 5.7) require VPS deployment.
+User should decide if cross-subdomain preference sharing is required before deployment.
+
+---
+
 ## SESSION PROGRESS - 2026-01-06 (Iteration 5 - Phase 5 Assessment)
 
 **Session ID:** 20260106-151703-26314
@@ -354,9 +412,17 @@ All remaining tasks require live VPS deployment:
 ## Technical Notes
 
 ### Cross-Site Preference Sharing
-All sites share parent domain `gusciora.pl`, so localStorage keys are naturally shared:
-- `gusciora-theme`: stores `"light"` or `"dark"`
-- `gusciora-lang`: stores `"en"` or `"pl"`
+**NOTE:** localStorage is origin-specific, so preferences do NOT automatically share across subdomains.
+
+**Current implementation:**
+- `gusciora-theme`: stores `"light"` or `"dark"` (per-origin)
+- `gusciora-lang`: stores `"en"` or `"pl"` (per-origin)
+
+**Behavior:**
+- Preferences persist within each site independently
+- User setting theme on gusciora.pl won't affect tomasz.gusciora.pl
+
+**If cross-subdomain sharing is required:** Switch to cookies with `domain=.gusciora.pl` scope
 
 ### Astro i18n Configuration
 ```javascript
