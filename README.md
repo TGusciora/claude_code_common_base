@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🤖 Claude Code Portable Setup
+# Claude Code Portable Setup
 
 ### A production-ready, portable configuration for Claude Code CLI
 
@@ -11,23 +11,23 @@
 ---
 
 **A comprehensive, batteries-included configuration framework for Claude Code**
-*Skills • Agents • Hooks • Safety • Audit Logging • Dev Docs*
+*Skills • Agents • Hooks • Safety • Ralph Automation • Dev Docs*
 
-[Features](#-features) • [Quick Start](#-quick-start) • [Directory Structure](#-directory-structure) • [Documentation](#-documentation)
+[Quick Start](#-quick-start) • [Ralph Agent](#-ralph-autonomous-agent) • [Features](#-features) • [Documentation](#-documentation)
 
 </div>
 
 ---
 
-## 📖 About
+## About
 
 This repository provides a **portable Claude Code configuration** that you can drop into any project to supercharge your AI-assisted development workflow. It includes pre-configured skills, specialized agents, safety hooks, and a persistent documentation pattern for maintaining context across sessions.
 
-### 🙏 Credits & Attribution
+### Credits & Attribution
 
 | | |
 |---|---|
-| **Author** | **Tomasz Guściora** |
+| **Author** | **Tomasz Gusciora** |
 | **Based on** | [claude-code-infrastructure-showcase](https://github.com/diet103/claude-code-infrastructure-showcase) by diet103 |
 | **Original Discussion** | [Claude Code is a Beast - Tips from 6 Months of Use](https://www.reddit.com/r/ClaudeAI/comments/1oivjvm/claude_code_is_a_beast_tips_from_6_months_of/) |
 | **Hooks Guide** | [The Production-Ready Claude Code Hooks Guide](https://alirezarezvani.medium.com/the-production-ready-claude-code-hooks-guide-7-hooks-that-actually-matter-823587f9fc61) by Alireza Rezvani |
@@ -35,13 +35,187 @@ This repository provides a **portable Claude Code configuration** that you can d
 
 ---
 
-## ✨ Features
+## Quick Start
+
+### Installation
+
+```bash
+# Clone this repository
+git clone https://github.com/YOUR_USERNAME/claude_code_common_base.git
+
+# Or copy the .claude folder to your project
+cp -r claude_code_common_base/.claude your-project/
+cp claude_code_common_base/CLAUDE.md your-project/
+
+# Make hooks and scripts executable
+chmod +x .claude/hooks/*.py .claude/hooks/*.sh .claude/scripts/*.sh .claude/scripts/**/*.sh
+
+# Configure git hooks
+git config core.hooksPath .githooks
+```
+
+### The Idea-to-Implementation Pipeline
+
+The recommended workflow transforms ideas into deployed code through three automated phases:
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         IDEA-TO-IMPLEMENTATION PIPELINE                      │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│   1. DISCOVERY          2. DEV DOCS           3. RALPH                      │
+│   ─────────────         ─────────             ─────                         │
+│   /discovery     ──►    /dev-docs     ──►     /ralph                        │
+│                                                                             │
+│   Create PRD from       Create task           Autonomous                    │
+│   your idea through     documentation         implementation                │
+│   5 interactive         with plan,            in isolated                   │
+│   phases                context & tasks       git worktree                  │
+│                                                                             │
+│   Output:               Output:               Output:                       │
+│   docs/discovery/       dev_docs/active/      Feature branch                │
+│   └── 05-prd-final.md   └── NNNN_task/        ready to merge                │
+│                             ├── *-plan.md                                   │
+│                             ├── *-context.md                                │
+│                             └── *-tasks.md                                  │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Step-by-Step Example
+
+```bash
+# Step 1: Create PRD from your idea
+/discovery -d "A REST API for managing user subscriptions"
+# Output: docs/discovery/subscription-api/05-prd-final.md
+
+# Step 2: Create development task documentation
+/dev-docs "Implement subscription API from PRD"
+# Output: dev_docs/active/0001_subscription-api/
+
+# Step 3: Let Ralph implement it autonomously
+/ralph
+# Ralph works in isolated worktree, commits to feature branch
+
+# Step 4: Review and merge Ralph's work
+git diff main..ralph/0001_subscription-api
+git merge ralph/0001_subscription-api
+```
+
+---
+
+## Ralph: Autonomous Agent
+
+Ralph is a **test-driven, self-continuing agent** that automates implementation of tasks from `dev_docs/active/`. He works in an isolated git worktree, protecting your main branch while autonomously implementing features.
+
+### How Ralph Works
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                           RALPH'S ARCHITECTURE                              │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│   YOUR PROJECT ROOT                    WORKTREE (isolated)                  │
+│   ─────────────────                    ────────────────────                 │
+│        │                                     │                              │
+│        │                               worktrees/ralph-worktree-0001/       │
+│        │                                     │                              │
+│   main branch ◄──────────────────────► ralph/0001_task-name branch          │
+│   (protected)                          (all changes here)                   │
+│        │                                     │                              │
+│   Your active                          Ralph's workspace:                   │
+│   development                          • Reads task docs                    │
+│        │                               • Writes tests first                 │
+│        │                               • Implements features                │
+│        │                               • Commits progress                   │
+│        │                                     │                              │
+│        └──────── MERGE WHEN READY ───────────┘                              │
+│                  (you review first)                                         │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Key Features
+
+| Feature | Description |
+|---------|-------------|
+| **Git Worktree Isolation** | All changes in `worktrees/ralph-worktree-NNNN/` on feature branch |
+| **Test-First Development** | Defines acceptance criteria → writes tests → implements → verifies |
+| **Smart Task Selection** | Batches related tasks, respects priorities and dependencies |
+| **Auto-Fix on Failure** | Analyzes test failures and attempts fixes before giving up |
+| **Progress Tracking** | JSONL log in `ralph_progress.txt` for session continuity |
+| **Conventional Commits** | Each iteration commits with proper message format |
+
+### Ralph's Workflow Per Iteration
+
+```
+1. STARTUP           2. SELECT            3. TEST-FIRST         4. COMMIT
+────────────         ──────────           ─────────────         ─────────
+• Verify worktree    • Review [ ] items   • Define goals        • Update tasks.md
+• Check branch       • Batch related      • Write tests (RED)   • Update context.md
+• Read task docs     • Declare selection  • Implement (GREEN)   • Append progress
+• Run baseline       • State rationale    • Verify & fix        • git commit
+```
+
+### Using Ralph
+
+```bash
+# Run with default 20 iterations
+/ralph
+# or: .claude/scripts/ralph/ralph.sh
+
+# Run with custom iteration limit
+.claude/scripts/ralph/ralph.sh 10
+
+# Preview what would happen
+.claude/scripts/ralph/ralph.sh --dry-run
+
+# Check current status
+.claude/scripts/ralph/ralph.sh --status
+
+# Clean up worktree and branch
+.claude/scripts/ralph/ralph.sh --cleanup
+```
+
+### After Ralph Completes
+
+```bash
+# Review changes on the feature branch
+git log main..ralph/0001_task-name
+git diff main..ralph/0001_task-name
+
+# Run tests in worktree
+cd worktrees/ralph-worktree-0001 && pytest
+
+# If satisfied, merge to main
+git checkout main
+git merge ralph/0001_task-name
+
+# Or create a PR for team review
+gh pr create --base main --head ralph/0001_task-name
+
+# Clean up
+git worktree remove worktrees/ralph-worktree-0001
+git branch -D ralph/0001_task-name
+```
+
+### Ralph's Safety Features
+
+1. **Worktree Isolation**: Changes never touch main branch directly
+2. **Path-Restricted Tools**: Write/Edit only allowed in worktree directory
+3. **Safety Hooks Active**: `safety_validator.py` still blocks dangerous operations
+4. **Iteration Limit**: Maximum 20 iterations prevents runaway execution
+5. **Test-Driven**: Tasks only marked complete when tests pass
+
+---
+
+## Features
 
 <table>
 <tr>
 <td width="50%" valign="top">
 
-### 🎯 Skills System
+### Skills System
 Domain-specific knowledge modules that Claude loads when relevant:
 
 | Skill | Purpose |
@@ -62,7 +236,7 @@ Domain-specific knowledge modules that Claude loads when relevant:
 </td>
 <td width="50%" valign="top">
 
-### 🤖 11 Specialized Agents
+### 11 Specialized Agents
 Autonomous sub-agents for complex tasks:
 
 | Agent | Purpose |
@@ -72,14 +246,19 @@ Autonomous sub-agents for complex tasks:
 | `code-architecture-reviewer` | Code review |
 | `refactor-planner` | Refactoring strategies |
 | `api-tester` | API endpoint testing |
-| `+ 6 more...` | See full list below |
+| `documentation-architect` | Create docs |
+| `dependency-analyzer` | Audit dependencies |
+| `performance-profiler` | Find bottlenecks |
+| `plan-reviewer` | Review plans |
+| `code-refactor-master` | Execute refactoring |
+| `web-research-specialist` | Research online |
 
 </td>
 </tr>
 <tr>
 <td width="50%" valign="top">
 
-### 🛡️ Safety & Audit System
+### Safety & Audit System
 Built-in protection and logging:
 
 | Hook | Function |
@@ -89,23 +268,29 @@ Built-in protection and logging:
 | `skill-suggester.py` | Smart skill recommendations |
 | `auto-format.sh` | Auto-format on save |
 
+**Permission Tiers:**
+- **ALLOW**: Read, Glob, Grep, tests, linters
+- **ASK**: Edit, Write, rm, docker, git push
+- **DENY**: .env files, secrets, credentials
+
 </td>
 <td width="50%" valign="top">
 
-### 📚 Dev Docs Pattern
+### Dev Docs Pattern
 Persistent context across sessions:
 
 ```
 dev_docs/
 ├── active/          # Work in progress
 │   └── 0001_task/
-│       ├── *-plan.md
-│       ├── *-context.md
-│       └── *-tasks.md
+│       ├── *-plan.md      # Strategy
+│       ├── *-context.md   # State & decisions
+│       ├── *-tasks.md     # Checklist
+│       └── ralph_progress.txt
 └── archive/         # Completed work
 ```
 
-**Commands:** `/dev-docs`, `/dev-docs-update`, `/continue-dev`, `/commit-git`
+**Commands:** `/dev-docs`, `/dev-docs-update`, `/continue-dev`, `/ralph`, `/commit-git`
 
 </td>
 </tr>
@@ -113,113 +298,27 @@ dev_docs/
 
 ---
 
-## 🚀 Quick Start
+## Available Commands
 
-### 1. Clone or Copy
-
-```bash
-# Clone this repository
-git clone https://github.com/YOUR_USERNAME/claude_code_common_base.git
-
-# Or copy the .claude folder to your project
-cp -r claude_code_common_base/.claude your-project/
-cp claude_code_common_base/CLAUDE.md your-project/
-```
-
-### 2. Make Hooks Executable
-
-```bash
-chmod +x .claude/hooks/*.py
-chmod +x .claude/hooks/*.sh
-chmod +x .claude/scripts/*.sh
-```
-
-### 3. Configure Git Hooks
-
-```bash
-git config core.hooksPath .githooks
-```
-
-This enables the pre-commit hook that runs ruff linting on Python files.
-
-### 4. Start Using
-
-```bash
-# Launch Claude Code in your project
-claude
-
-# Use skills
-/python-dev    # Activate Python development skill
-
-# Use agents
-"Use the test-writer agent to write tests for my function"
-```
+| Command | Description |
+|---------|-------------|
+| `/discovery` | Create PRD from idea through 5-phase pipeline |
+| `/dev-docs` | Create task documentation from PRD or requirements |
+| `/ralph` | Start autonomous implementation agent |
+| `/continue-dev` | Resume task implementation (manual, with extended thinking) |
+| `/commit-git` | Analyze changes, create conventional commits, push |
+| `/python-dev` | Activate Python development skill |
+| `/k8s-dev` | Activate Kubernetes development skill |
+| `/skill-dev` | Activate skill development skill |
+| `/frontend-design` | Activate frontend design skill |
 
 ---
 
-## 🔄 Development Workflow
-
-A complete idea-to-commit workflow using the built-in commands:
-
-```
-┌─────────────┐    ┌─────────────┐    ┌──────────────┐    ┌─────────────┐
-│  /discovery │ -> │  /dev-docs  │ -> │ /continue-dev│ -> │ /commit-git │
-│             │    │             │    │              │    │             │
-│ Create PRD  │    │ Create dev  │    │ Implement    │    │ Commit +    │
-│ from idea   │    │ task docs   │    │ tasks        │    │ push        │
-└─────────────┘    └─────────────┘    └──────────────┘    └─────────────┘
-                                             ↑                   │
-                                             │    pre-commit     │
-                                             │    hook lints     │
-                                             │    Python files   │
-                                             └───────────────────┘
-```
-
-### Step 1: Create PRD from Idea
-```bash
-/discovery -d "A REST API for managing user subscriptions"
-```
-Runs 5-phase pipeline: Interview → Research → Synthesis → Review → Consolidation
-
-Output: `docs/discovery/<project>/05-prd-final.md`
-
-### Step 2: Create Development Docs
-```bash
-/dev-docs "Implement subscription API from PRD"
-```
-Creates numbered task folder with:
-- `NNNN_task-name-plan.md` - Implementation strategy
-- `NNNN_task-name-context.md` - Key files and decisions
-- `NNNN_task-name-tasks.md` - Actionable checklist
-
-### Step 3: Implement Tasks
-```bash
-/continue-dev
-```
-- Scans `dev_docs/active/` for lowest numbered task
-- Reads all three docs files with extended thinking
-- Implements incomplete tasks in order
-- Updates progress in context and tasks files
-
-### Step 4: Commit and Push
-```bash
-git add .
-/commit-git
-```
-- Analyzes staged changes
-- Generates conventional commit message
-- Allows editing before commit
-- Automatically pushes to remote
-
-**Pre-commit Hook:** Ruff linting runs automatically on staged Python files before commit.
-
----
-
-## 📁 Directory Structure
+## Directory Structure
 
 ```
 .claude/
-├── 📂 agents/              # 11 specialized autonomous agents
+├── agents/                 # 11 specialized autonomous agents
 │   ├── api-tester.md
 │   ├── code-architecture-reviewer.md
 │   ├── code-refactor-master.md
@@ -232,94 +331,52 @@ git add .
 │   ├── test-writer.md
 │   └── web-research-specialist.md
 │
-├── 📂 skills/              # Domain knowledge modules
-│   ├── python-dev/         # Python + TDD + SOLID
-│   ├── k8s-dev/            # Kubernetes patterns
-│   ├── skill-developer/    # Meta-skill for creating skills
-│   ├── frontend-design/    # UI design (from Anthropic)
-│   ├── theme-factory/      # Artifact theming (from Anthropic)
-│   ├── webapp-testing/     # Playwright testing (from Anthropic)
-│   ├── web-artifacts-builder/ # React artifacts (from Anthropic)
-│   └── skill-rules.json    # Trigger configuration
+├── skills/                 # Domain knowledge modules
+│   ├── python-dev/
+│   ├── k8s-dev/
+│   ├── skill-developer/
+│   ├── frontend-design/    # From Anthropic
+│   ├── theme-factory/      # From Anthropic
+│   ├── webapp-testing/     # From Anthropic
+│   ├── web-artifacts-builder/  # From Anthropic
+│   └── skill-rules.json
 │
-├── 📂 hooks/               # Event-triggered automation
-│   ├── safety_validator.py # Block dangerous commands
-│   ├── audit_logger.py     # Action logging
-│   ├── skill-suggester.py  # Smart skill suggestions
-│   ├── skill-validator.py  # Skill file validation
-│   └── auto-format.sh      # Auto-formatting
+├── hooks/                  # Event-triggered automation
+│   ├── safety_validator.py
+│   ├── audit_logger.py
+│   ├── skill-suggester.py
+│   ├── skill-validator.py
+│   └── auto-format.sh
 │
-├── 📂 commands/            # Slash commands
+├── commands/               # Slash commands
+│   ├── discovery.md
+│   ├── dev-docs.md
+│   ├── ralph.md
+│   ├── continue-dev.md
+│   ├── commit-git.md
 │   ├── python-dev.md
 │   ├── k8s-dev.md
-│   ├── skill-dev.md
-│   ├── dev-docs.md
-│   ├── dev-docs-update.md
-│   ├── discovery.md        # Discovery-to-PRD pipeline
-│   ├── continue-dev.md     # Resume task implementation
-│   └── commit-git.md       # Conventional commits + push
+│   └── skill-dev.md
 │
-├── 📂 scripts/             # Helper scripts
-│   ├── next-task-number.sh
-│   └── discovery_agent/    # Discovery pipeline orchestrator
-│       ├── discovery_agent.py
-│       └── prompts/        # Phase-specific prompts
+├── scripts/
+│   ├── ralph/              # Ralph agent orchestrator
+│   │   ├── ralph.sh        # Main script
+│   │   └── prompts/        # Agent prompts
+│   ├── discovery_agent/    # Discovery pipeline
+│   └── next-task-number.sh
 │
-├── 📂 audit_logs/          # Action audit trail
+├── audit_logs/             # Action audit trail
 │
-└── ⚙️ settings.json         # Main configuration
+└── settings.json           # Main configuration
 ```
 
 ---
 
-## 🎯 Available Agents
-
-| Agent | Purpose | Use Case |
-|-------|---------|----------|
-| 🧪 `test-writer` | TDD test creation | "Write tests for my validation function" |
-| 🔴 `error-debugger` | Debug errors systematically | "Debug this KeyError" |
-| 🔵 `code-architecture-reviewer` | Code & architecture review | "Review my new API endpoint" |
-| 🟣 `refactor-planner` | Plan refactoring strategies | "Plan how to split this large module" |
-| 🟣 `performance-profiler` | Find bottlenecks | "Profile this slow function" |
-| 🟡 `plan-reviewer` | Review implementation plans | "Review my authentication plan" |
-| 🟡 `dependency-analyzer` | Audit dependencies | "Check for security vulnerabilities" |
-| 🟠 `api-tester` | Test API endpoints | "Test the /users endpoint" |
-| 🔵 `documentation-architect` | Create documentation | "Document this feature" |
-| 🔵 `web-research-specialist` | Research online | "Find solutions for this error" |
-| 🟢 `code-refactor-master` | Execute refactoring | "Reorganize the components folder" |
-
-**Usage:** `Use the [agent-name] agent to [your task]`
-
----
-
-## 🛡️ Safety Features
-
-### Permission Tiers
-
-```
-✅ ALLOW (no confirmation)
-   Read, Glob, Grep, git status, git log, tests, linters
-
-⚠️ ASK (requires confirmation)
-   Edit, Write, rm, docker, kubectl delete, git push, installs
-
-🚫 DENY (always blocked)
-   .env files, secrets, credentials, rm -rf /
-```
-
-### Built-in Protections
-
-- **Destructive Command Blocking** - `rm -rf /`, `rm -rf ~` are blocked
-- **Sensitive File Protection** - `.env`, `credentials`, `id_rsa` access denied
-- **Full Audit Trail** - Every action logged to `.claude/audit_logs/`
-
----
-
-## 🔍 Discovery Pipeline
+## Discovery Pipeline
 
 Transform ideas into structured Product Requirements Documents through a 5-phase pipeline.
 
-### How It Works
+### Phases
 
 | Phase | Mode | Description |
 |-------|------|-------------|
@@ -357,7 +414,7 @@ All artifacts saved to `docs/discovery/<project-name>/`:
 
 ---
 
-## 📚 Documentation
+## Documentation
 
 | Document | Description |
 |----------|-------------|
@@ -366,10 +423,11 @@ All artifacts saved to `docs/discovery/<project-name>/`:
 | [.claude/agents/README.md](.claude/agents/README.md) | Agents documentation |
 | [.claude/hooks/README.md](.claude/hooks/README.md) | Hooks configuration |
 | [.claude/dev_docs/README.md](.claude/dev_docs/README.md) | Dev docs pattern |
+| [.claude/commands/ralph.md](.claude/commands/ralph.md) | Ralph agent guide |
 
 ---
 
-## 🔧 Customization
+## Customization
 
 ### Adding Custom Skills
 
@@ -400,7 +458,7 @@ Edit `.claude/settings.json`:
 
 ---
 
-## 🌐 Connect With Me
+## Connect With Me
 
 <div align="center">
 
@@ -412,7 +470,7 @@ Edit `.claude/settings.json`:
 
 ---
 
-## 📜 License
+## License
 
 This project is available for personal and commercial use. Feel free to adapt it for your needs.
 
@@ -420,7 +478,7 @@ This project is available for personal and commercial use. Feel free to adapt it
 
 <div align="center">
 
-**Built with 🤖 Claude Code**
+**Built with Claude Code**
 
 *Making AI-assisted development safer, smarter, and more productive*
 
