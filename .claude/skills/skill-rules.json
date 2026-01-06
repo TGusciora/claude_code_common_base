@@ -145,6 +145,153 @@
           "**/.venv/**"
         ]
       }
+    },
+    "frontend-design": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "high",
+      "description": "Create distinctive, production-grade frontend interfaces with high design quality",
+      "promptTriggers": {
+        "keywords": [
+          "frontend design",
+          "ui design",
+          "landing page",
+          "dashboard",
+          "web component",
+          "styling",
+          "beautify",
+          "web interface",
+          "layout design",
+          "typography",
+          "color palette",
+          "visual design",
+          "css design",
+          "react component",
+          "html page"
+        ],
+        "intentPatterns": [
+          "(create|build|design|make).*?(frontend|landing page|dashboard|ui|interface)",
+          "(style|beautify|improve).*?(web|interface|component|page)",
+          "(design|create).*?(component|page|layout)",
+          "make.*?(look|beautiful|pretty|styled)",
+          "(build|create).*?web.*(app|page|site)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/components/**/*.tsx",
+          "**/components/**/*.jsx",
+          "**/pages/**/*.tsx",
+          "**/app/**/*.tsx",
+          "**/*.css",
+          "**/*.scss"
+        ],
+        "pathExclusions": [
+          "**/node_modules/**",
+          "**/.next/**",
+          "**/dist/**"
+        ]
+      }
+    },
+    "theme-factory": {
+      "type": "workflow",
+      "enforcement": "suggest",
+      "priority": "medium",
+      "description": "Apply professional themes with curated color palettes and font pairings to artifacts",
+      "promptTriggers": {
+        "keywords": [
+          "theme",
+          "color theme",
+          "apply theme",
+          "styling theme",
+          "slide styling",
+          "presentation theme",
+          "color palette",
+          "font pairing",
+          "artifact styling"
+        ],
+        "intentPatterns": [
+          "(apply|choose|select|use).*?theme",
+          "(style|color|theme).*?(deck|slides|presentation|artifact)",
+          "change.*?(colors|fonts|theme)",
+          "(create|generate).*?theme"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          ".claude/skills/theme-factory/**"
+        ],
+        "pathExclusions": []
+      }
+    },
+    "webapp-testing": {
+      "type": "workflow",
+      "enforcement": "suggest",
+      "priority": "high",
+      "description": "Test local web applications using Playwright for browser automation and testing",
+      "promptTriggers": {
+        "keywords": [
+          "playwright",
+          "browser test",
+          "e2e test",
+          "end-to-end test",
+          "web testing",
+          "ui testing",
+          "automation test",
+          "browser automation",
+          "screenshot test",
+          "frontend test"
+        ],
+        "intentPatterns": [
+          "(test|verify|check).*?(web|app|frontend|ui|browser)",
+          "playwright.*?(script|test|automation)",
+          "browser.*?(test|automation|screenshot)",
+          "(e2e|end.to.end).*?test",
+          "(take|capture).*?screenshot"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/tests/e2e/**",
+          "**/e2e/**/*.py",
+          "**/*_e2e.py",
+          "**/playwright/**"
+        ],
+        "pathExclusions": [
+          "**/node_modules/**"
+        ]
+      }
+    },
+    "web-artifacts-builder": {
+      "type": "workflow",
+      "enforcement": "suggest",
+      "priority": "medium",
+      "description": "Build complex multi-component HTML artifacts with React, Tailwind CSS, and shadcn/ui",
+      "promptTriggers": {
+        "keywords": [
+          "html artifact",
+          "react artifact",
+          "bundle html",
+          "shadcn",
+          "multi-component artifact",
+          "complex artifact",
+          "web artifact",
+          "artifact builder"
+        ],
+        "intentPatterns": [
+          "(create|build|make).*?(complex|elaborate).*?artifact",
+          "(bundle|generate|create).*?html.*?artifact",
+          "artifact.*?(react|shadcn|component)",
+          "(build|create).*?artifact.*?(state|routing)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/bundle.html",
+          ".claude/skills/web-artifacts-builder/**"
+        ],
+        "pathExclusions": []
+      }
     }
   },
   "notes": {

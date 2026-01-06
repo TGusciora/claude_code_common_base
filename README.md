@@ -31,6 +31,7 @@ This repository provides a **portable Claude Code configuration** that you can d
 | **Based on** | [claude-code-infrastructure-showcase](https://github.com/diet103/claude-code-infrastructure-showcase) by diet103 |
 | **Original Discussion** | [Claude Code is a Beast - Tips from 6 Months of Use](https://www.reddit.com/r/ClaudeAI/comments/1oivjvm/claude_code_is_a_beast_tips_from_6_months_of/) |
 | **Hooks Guide** | [The Production-Ready Claude Code Hooks Guide](https://alirezarezvani.medium.com/the-production-ready-claude-code-hooks-guide-7-hooks-that-actually-matter-823587f9fc61) by Alireza Rezvani |
+| **Frontend Skills** | [Anthropic Skills Repository](https://github.com/anthropics/skills) - `frontend-design`, `theme-factory`, `webapp-testing`, `web-artifacts-builder` |
 
 ---
 
@@ -49,8 +50,14 @@ Domain-specific knowledge modules that Claude loads when relevant:
 | `k8s-dev` | Kubernetes cloud-agnostic patterns |
 | `skill-developer` | Meta-skill for creating skills |
 | `discovery` | Idea-to-PRD pipeline with 5 phases |
+| `frontend-design`* | Production-grade UI with distinctive design |
+| `theme-factory`* | Curated themes for artifacts |
+| `webapp-testing`* | Playwright browser testing |
+| `web-artifacts-builder`* | React/Tailwind HTML artifacts |
 
-**Activation:** `/python-dev`, `/k8s-dev`, `/skill-dev`, `/discovery`
+*Skills from [Anthropic Skills Repository](https://github.com/anthropics/skills)
+
+**Activation:** `/python-dev`, `/k8s-dev`, `/skill-dev`, `/discovery`, `/frontend-design`
 
 </td>
 <td width="50%" valign="top">
@@ -229,6 +236,10 @@ git add .
 │   ├── python-dev/         # Python + TDD + SOLID
 │   ├── k8s-dev/            # Kubernetes patterns
 │   ├── skill-developer/    # Meta-skill for creating skills
+│   ├── frontend-design/    # UI design (from Anthropic)
+│   ├── theme-factory/      # Artifact theming (from Anthropic)
+│   ├── webapp-testing/     # Playwright testing (from Anthropic)
+│   ├── web-artifacts-builder/ # React artifacts (from Anthropic)
 │   └── skill-rules.json    # Trigger configuration
 │
 ├── 📂 hooks/               # Event-triggered automation

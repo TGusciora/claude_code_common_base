@@ -108,6 +108,129 @@ Use slash commands directly:
 
 ---
 
+### frontend-design
+
+> *Sourced from [Anthropic Skills Repository](https://github.com/anthropics/skills)*
+
+**Purpose:** Create distinctive, production-grade frontend interfaces with high design quality
+
+**Files:**
+- `SKILL.md` - Main guide with design thinking and aesthetics guidelines
+
+**Triggers:**
+- Keywords: `frontend design`, `ui design`, `landing page`, `dashboard`, etc.
+- File patterns: `**/components/**/*.tsx`, `**/pages/**/*.tsx`, `**/*.css`
+
+**Use when:**
+- Building web components, pages, or applications
+- Creating landing pages or dashboards
+- Styling/beautifying any web UI
+- Need distinctive design that avoids generic AI aesthetics
+
+**Key Principles:**
+- Bold aesthetic direction (minimalist, maximalist, retro-futuristic, etc.)
+- Distinctive typography choices (avoid generic fonts like Inter, Arial)
+- Cohesive color themes with CSS variables
+- Creative motion and micro-interactions
+
+**[View Skill](frontend-design/)**
+
+---
+
+### theme-factory
+
+> *Sourced from [Anthropic Skills Repository](https://github.com/anthropics/skills)*
+
+**Purpose:** Apply professional themes with curated color palettes and font pairings to artifacts
+
+**Files:**
+- `SKILL.md` - Main guide
+- `themes/` - 10 pre-built theme definitions (Ocean Depths, Sunset Boulevard, etc.)
+
+**Triggers:**
+- Keywords: `theme`, `color palette`, `font pairing`, `apply theme`
+- Intent patterns: `(apply|choose|select|use).*?theme`
+
+**Use when:**
+- Styling presentation slides, docs, or HTML artifacts
+- Need consistent professional color/font choices
+- Want to apply pre-built themes or create custom ones
+
+**Available Themes:**
+1. Ocean Depths - Professional maritime theme
+2. Sunset Boulevard - Warm sunset colors
+3. Forest Canopy - Natural earth tones
+4. Modern Minimalist - Clean grayscale
+5. Golden Hour - Autumnal palette
+6. Arctic Frost - Winter-inspired
+7. Desert Rose - Dusty sophisticated tones
+8. Tech Innovation - Bold tech aesthetic
+9. Botanical Garden - Fresh garden colors
+10. Midnight Galaxy - Cosmic deep tones
+
+**[View Skill](theme-factory/)**
+
+---
+
+### webapp-testing
+
+> *Sourced from [Anthropic Skills Repository](https://github.com/anthropics/skills)*
+
+**Purpose:** Test local web applications using Playwright for browser automation
+
+**Files:**
+- `SKILL.md` - Main guide with patterns and examples
+- `scripts/with_server.py` - Server lifecycle management
+
+**Triggers:**
+- Keywords: `playwright`, `browser test`, `e2e test`, `ui testing`
+- File patterns: `**/tests/e2e/**`, `**/playwright/**`
+
+**Use when:**
+- Testing frontend functionality
+- Debugging UI behavior
+- Capturing browser screenshots
+- End-to-end testing of web applications
+
+**Key Patterns:**
+- Reconnaissance-then-action pattern
+- Server lifecycle management (single or multiple servers)
+- Proper wait handling for dynamic content
+
+**[View Skill](webapp-testing/)**
+
+---
+
+### web-artifacts-builder
+
+> *Sourced from [Anthropic Skills Repository](https://github.com/anthropics/skills)*
+
+**Purpose:** Build complex multi-component HTML artifacts with React, Tailwind CSS, and shadcn/ui
+
+**Files:**
+- `SKILL.md` - Main guide
+- `scripts/init-artifact.sh` - Project initialization
+- `scripts/bundle-artifact.sh` - Bundle to single HTML file
+
+**Triggers:**
+- Keywords: `html artifact`, `react artifact`, `shadcn`, `complex artifact`
+- Intent patterns: `(create|build).*?(complex|elaborate).*?artifact`
+
+**Use when:**
+- Building elaborate, multi-component claude.ai artifacts
+- Need state management or routing in artifacts
+- Using shadcn/ui components
+- NOT for simple single-file HTML/JSX artifacts
+
+**Stack:**
+- React 18 + TypeScript + Vite
+- Tailwind CSS + shadcn/ui (40+ components pre-installed)
+- Parcel for bundling to single HTML
+
+**[View Skill](web-artifacts-builder/)**
+
+---
+
 ## skill-rules.json Configuration
 
 ### Location
@@ -253,18 +376,26 @@ ls -la .claude/hooks/*.py
 .claude/skills/
 ├── README.md              # This file
 ├── skill-rules.json       # Trigger configuration
-├── python-dev/
-│   ├── SKILL.md           # Main skill file
-│   └── resources/         # Deep-dive reference files
-├── skill-developer/
+├── python-dev/            # Python + TDD + SOLID
 │   ├── SKILL.md
 │   └── resources/
-└── k8s-dev/
-    ├── SKILL.md           # Main K8s guide
-    └── resources/
-        ├── MANIFEST_TEMPLATES.md
-        ├── LABEL_STANDARDS.md
-        └── COMMON_ISSUES.md
+├── skill-developer/       # Meta-skill for creating skills
+│   ├── SKILL.md
+│   └── resources/
+├── k8s-dev/               # Kubernetes patterns
+│   ├── SKILL.md
+│   └── resources/
+├── frontend-design/       # Frontend UI design (from Anthropic)
+│   └── SKILL.md
+├── theme-factory/         # Artifact theming (from Anthropic)
+│   ├── SKILL.md
+│   └── themes/            # 10 pre-built themes
+├── webapp-testing/        # Playwright testing (from Anthropic)
+│   ├── SKILL.md
+│   └── scripts/
+└── web-artifacts-builder/ # React/Tailwind artifacts (from Anthropic)
+    ├── SKILL.md
+    └── scripts/
 ```
 
 ---
