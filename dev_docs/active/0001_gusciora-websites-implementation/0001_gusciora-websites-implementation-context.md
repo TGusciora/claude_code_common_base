@@ -5,6 +5,52 @@
 
 ---
 
+## SESSION PROGRESS - 2026-01-06 (Iteration 3)
+
+**Session ID:** 20260106-151703-26314
+**Branch:** ralph/0001_gusciora-websites-implementation
+
+**Selected Tasks:** Phase 2 tasks 2.5-2.7
+- Rationale: CTA implementation - contact form, booking widget, footer complete the conversion funnel
+
+**Test-First Summary:**
+- Business goals defined: Yes - Enable visitor conversion via contact or booking
+- Acceptance criteria: Form with honeypot, Cal.com embed, footer with social links
+- Tests written: 0 (static site build + manual verification)
+- Tests passing: Build succeeds (2 pages built in 432ms)
+- Regression suite: N/A
+
+**Completed:**
+- [x] 2.5 Contact form (PRIMARY CTA) with Formspark integration
+- [x] 2.6 Cal.com booking widget (SECONDARY CTA)
+- [x] 2.7 Footer with social links (blog, substack, linkedin)
+
+**Files Created:**
+- `sites/tomasz-gusciora-pl/src/components/ContactForm.astro` - Form with honeypot, success/error states
+- `sites/tomasz-gusciora-pl/src/components/Booking.astro` - Cal.com embed with fallback link
+- `sites/tomasz-gusciora-pl/src/components/Footer.astro` - Social links with icons
+
+**Files Modified:**
+- `sites/tomasz-gusciora-pl/src/pages/index.astro` - Added ContactForm, Booking, Footer components
+- `sites/tomasz-gusciora-pl/src/pages/en/index.astro` - Added ContactForm, Booking, Footer components
+
+**Decisions Made:**
+- ContactForm uses Formspark with AJAX submission (no page reload)
+- Honeypot field hidden with CSS (position absolute, off-screen)
+- Cal.com loads via embed script with fallback link if JS fails
+- Footer icons are SVG inline for theme compatibility
+
+**Configuration Required (before deployment):**
+- Replace `REPLACE_WITH_FORMSPARK_ID` in ContactForm.astro with actual Formspark form ID
+- Replace `REPLACE_WITH_CAL_USERNAME` in Booking.astro with actual Cal.com username
+
+**Next Iteration Should:**
+- Review and finalize Polish content (2.8)
+- Review and finalize English content (2.9)
+- Verify mobile responsiveness (2.10)
+
+---
+
 ## SESSION PROGRESS - 2026-01-06 (Iteration 2)
 
 **Session ID:** 20260106-151703-26314

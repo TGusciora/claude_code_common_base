@@ -62,7 +62,7 @@
   - Scannable list format
   - AC: All modules visible with visual hierarchy
 
-- [ ] 2.5 Contact form (PRIMARY CTA)
+- [x] 2.5 Contact form (PRIMARY CTA)
   - Formspark integration
   - Fields: name, email, message
   - Success/error feedback
@@ -70,12 +70,12 @@
   - Visually emphasized as primary action
   - AC: Form submits to tomasz@demystifai.blog; user sees feedback
 
-- [ ] 2.6 Cal.com booking (SECONDARY CTA)
+- [x] 2.6 Cal.com booking (SECONDARY CTA)
   - Embed widget on page
   - Style as secondary action
   - AC: Visitors can schedule discovery calls; no Google account required
 
-- [ ] 2.7 Footer
+- [x] 2.7 Footer
   - demystifai.blog link
   - demystifai.substack.com link
   - LinkedIn link (https://www.linkedin.com/in/tgusciora/)
@@ -183,8 +183,8 @@
 | Phase | Total | Complete | Remaining |
 |-------|-------|----------|-----------|
 | Phase 1 | 6 | 6 | 0 |
-| Phase 2 | 10 | 4 | 6 |
+| Phase 2 | 10 | 7 | 3 |
 | Phase 3 | 5 | 0 | 5 |
 | Phase 4 | 2 | 0 | 2 |
 | Phase 5 | 7 | 0 | 7 |
-| **Total** | **30** | **10** | **20** |
+| **Total** | **30** | **13** | **17** |

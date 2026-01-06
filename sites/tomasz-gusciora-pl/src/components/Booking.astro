@@ -1,0 +1,226 @@
+---
+/**
+ * Booking - Secondary CTA for Cal.com discovery calls
+ *
+ * Features:
+ * - Cal.com embed widget
+ * - Styled as secondary action
+ * - PL/EN locale support
+ * - No Google account required for bookers
+ */
+
+interface Props {
+  locale: 'pl' | 'en';
+}
+
+const { locale } = Astro.props;
+
+const content = {
+  pl: {
+    title: 'Umów darmową rozmowę',
+    subtitle: '15-minutowa sesja discovery - poznajmy się i sprawdźmy, czy szkolenie będzie dla Ciebie.',
+    calLink: 'Wybierz termin',
+    note: 'Bez zobowiązań. Nie wymagamy konta Google.',
+  },
+  en: {
+    title: 'Book a Free Discovery Call',
+    subtitle: '15-minute discovery session - let\'s meet and see if the training is right for you.',
+    calLink: 'Pick a Time',
+    note: 'No obligation. No Google account required.',
+  },
+};
+
+const t = content[locale];
+
+// Cal.com username - to be configured
+const CAL_USERNAME = 'REPLACE_WITH_CAL_USERNAME';
+const CAL_EVENT_TYPE = 'discovery';
+---
+
+<section class="booking" id="booking">
+  <div class="container booking-container">
+    <div class="booking-header">
+      <h2 class="booking-title">{t.title}</h2>
+      <p class="booking-subtitle">{t.subtitle}</p>
+    </div>
+
+    <div class="booking-content">
+      <!-- Cal.com inline embed -->
+      <div
+        class="cal-embed"
+        data-cal-link={`${CAL_USERNAME}/${CAL_EVENT_TYPE}`}
+        data-cal-config={JSON.stringify({
+          layout: 'month_view',
+          theme: 'auto',
+        })}
+      >
+        <!-- Fallback link for users without JS or if embed fails -->
+        <a
+          href={`https://cal.com/${CAL_USERNAME}/${CAL_EVENT_TYPE}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-secondary"
+        >
+          {t.calLink}
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+            <path d="M15 3h6v6" />
+            <path d="M10 14L21 3" />
+          </svg>
+        </a>
+      </div>
+
+      <p class="booking-note">{t.note}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .booking {
+    padding: var(--spacing-3xl) 0;
+    background: var(--color-bg-secondary);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .booking-container {
+    max-width: 800px;
+    text-align: center;
+  }
+
+  .booking-header {
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .booking-title {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text);
+  }
+
+  .booking-subtitle {
+    font-size: var(--text-lg);
+    color: var(--color-text-secondary);
+    margin: 0;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .booking-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-lg);
+  }
+
+  .cal-embed {
+    width: 100%;
+    min-height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* When Cal.com embed is loaded, it replaces the fallback */
+  .cal-embed.cal-loaded {
+    min-height: auto;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md) var(--spacing-xl);
+    font-size: var(--text-base);
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--color-text);
+    border: 2px solid var(--color-border);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  .btn-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  .booking-note {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  /* Cal.com embed container styling */
+  :global(.cal-embed iframe) {
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+  }
+
+  @media (max-width: 640px) {
+    .booking {
+      padding: var(--spacing-2xl) 0;
+    }
+
+    .booking-title {
+      font-size: var(--text-2xl);
+    }
+
+    .cal-embed {
+      min-height: 300px;
+    }
+  }
+</style>
+
+<!-- Cal.com embed script -->
+<script is:inline>
+  (function() {
+    // Load Cal.com embed script
+    const script = document.createElement('script');
+    script.src = 'https://app.cal.com/embed/embed.js';
+    script.async = true;
+    script.onload = function() {
+      // Initialize Cal.com embeds
+      if (typeof Cal !== 'undefined') {
+        Cal('init', { origin: 'https://cal.com' });
+
+        // Find all cal-embed containers and initialize
+        document.querySelectorAll('.cal-embed').forEach(function(container) {
+          const calLink = container.dataset.calLink;
+          const config = JSON.parse(container.dataset.calConfig || '{}');
+
+          if (calLink && calLink.indexOf('REPLACE_') === -1) {
+            // Clear fallback content
+            container.innerHTML = '';
+            container.classList.add('cal-loaded');
+
+            // Create inline embed
+            Cal('inline', {
+              elementOrSelector: container,
+              calLink: calLink,
+              layout: config.layout || 'month_view',
+              config: {
+                theme: config.theme || 'auto',
+              },
+            });
+          }
+        });
+      }
+    };
+    document.head.appendChild(script);
+  })();
+</script>
