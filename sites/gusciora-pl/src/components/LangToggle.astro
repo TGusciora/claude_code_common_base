@@ -1,0 +1,125 @@
+---
+/**
+ * LangToggle Component
+ *
+ * Toggles between Polish (pl) and English (en) using localStorage key 'gusciora-lang'.
+ * Navigates to the correct locale path when toggled.
+ * Shared across all Gusciora family sites for consistent user preference.
+ */
+
+interface Props {
+  currentLocale?: 'pl' | 'en';
+}
+
+const { currentLocale = 'pl' } = Astro.props;
+---
+
+<button
+  id="lang-toggle"
+  type="button"
+  aria-label="Toggle language"
+  class="lang-toggle"
+  data-current-locale={currentLocale}
+>
+  <span class="lang-label">{currentLocale === 'pl' ? 'EN' : 'PL'}</span>
+</button>
+
+<style>
+  .lang-toggle {
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text);
+    font-weight: 600;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    transition: background-color 0.2s, border-color 0.2s;
+  }
+
+  .lang-toggle:hover {
+    background: var(--color-surface-hover);
+    border-color: var(--color-border-hover);
+  }
+
+  .lang-toggle:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+</style>
+
+<script is:inline>
+  // Language toggle functionality
+  (function() {
+    const LANG_KEY = 'gusciora-lang';
+
+    function getStoredLang() {
+      return localStorage.getItem(LANG_KEY);
+    }
+
+    function setLang(lang) {
+      localStorage.setItem(LANG_KEY, lang);
+    }
+
+    function navigateToLocale(newLocale) {
+      const currentPath = window.location.pathname;
+      let newPath;
+
+      // Check if we're currently on an English path (starts with /en/)
+      const isEnglishPath = currentPath.startsWith('/en/') || currentPath === '/en';
+
+      if (newLocale === 'en') {
+        // Going to English
+        if (isEnglishPath) {
+          // Already on English path
+          newPath = currentPath;
+        } else {
+          // Convert Polish path to English
+          newPath = '/en' + (currentPath === '/' ? '' : currentPath);
+        }
+      } else {
+        // Going to Polish (default)
+        if (isEnglishPath) {
+          // Remove /en prefix
+          newPath = currentPath.replace(/^\/en\/?/, '/');
+          if (newPath === '') newPath = '/';
+        } else {
+          // Already on Polish path
+          newPath = currentPath;
+        }
+      }
+
+      // Store preference and navigate
+      setLang(newLocale);
+
+      if (newPath !== currentPath) {
+        window.location.href = newPath;
+      }
+    }
+
+    // On page load, check if stored lang differs from current page locale
+    document.addEventListener('DOMContentLoaded', function() {
+      const toggle = document.getElementById('lang-toggle');
+      if (!toggle) return;
+
+      const currentLocale = toggle.dataset.currentLocale || 'pl';
+      const storedLang = getStoredLang();
+
+      // If user has a stored preference and it differs from current locale, redirect
+      if (storedLang && storedLang !== currentLocale) {
+        navigateToLocale(storedLang);
+        return;
+      }
+
+      // Set up toggle button click handler
+      toggle.addEventListener('click', function() {
+        const newLocale = currentLocale === 'pl' ? 'en' : 'pl';
+        navigateToLocale(newLocale);
+      });
+    });
+  })();
+</script>

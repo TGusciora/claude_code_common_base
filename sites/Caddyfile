@@ -1,0 +1,42 @@
+# Caddyfile for Gusciora family websites
+# Deploy to VPS at /etc/caddy/Caddyfile
+
+# Hub site - visual navigation to family member sites
+gusciora.pl {
+	root * /var/www/hub
+	file_server
+	encode gzip
+
+	# Handle SPA-style routing for Astro
+	try_files {path} {path}/ /index.html
+}
+
+# www redirect for hub
+www.gusciora.pl {
+	redir https://gusciora.pl{uri} permanent
+}
+
+# Tomasz training site - main B2B landing page
+tomasz.gusciora.pl {
+	root * /var/www/tomasz
+	file_server
+	encode gzip
+
+	# Handle SPA-style routing for Astro
+	try_files {path} {path}/ /index.html
+}
+
+# www redirect for Tomasz site
+www.tomasz.gusciora.pl {
+	redir https://tomasz.gusciora.pl{uri} permanent
+}
+
+# Adriana redirect to Instagram
+adriana.gusciora.pl {
+	redir https://www.instagram.com/ada.odrelacji/ permanent
+}
+
+# www redirect for Adriana
+www.adriana.gusciora.pl {
+	redir https://www.instagram.com/ada.odrelacji/ permanent
+}

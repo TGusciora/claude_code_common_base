@@ -1,0 +1,121 @@
+---
+/**
+ * BaseLayout - Main layout for tomasz.gusciora.pl
+ *
+ * Includes:
+ * - Global styles
+ * - Theme initialization (inline to prevent FOUC)
+ * - Meta tags and SEO basics
+ */
+
+import '../styles/global.css';
+import ThemeToggle from '../components/ThemeToggle.astro';
+import LangToggle from '../components/LangToggle.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  locale?: 'pl' | 'en';
+}
+
+const {
+  title,
+  description = 'Szkolenie Claude Code - 2-dniowy warsztat dla zespołów deweloperskich',
+  locale = 'pl'
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!DOCTYPE html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+
+    <!-- Theme initialization - inline to prevent FOUC -->
+    <script is:inline>
+      (function() {
+        const theme = localStorage.getItem('gusciora-theme') ||
+          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.classList.toggle('dark', theme === 'dark');
+      })();
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-content">
+        <a href={locale === 'pl' ? '/' : '/en/'} class="logo">
+          Tomasz Gusciora
+        </a>
+        <nav class="header-nav">
+          <div class="toggles">
+            <LangToggle currentLocale={locale} />
+            <ThemeToggle />
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <style>
+      .site-header {
+        position: sticky;
+        top: 0;
+        background: var(--color-bg);
+        border-bottom: 1px solid var(--color-border);
+        padding: var(--spacing-md) 0;
+        z-index: 100;
+      }
+
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: var(--text-lg);
+        font-weight: 700;
+        color: var(--color-text);
+        text-decoration: none;
+      }
+
+      .logo:hover {
+        color: var(--color-primary);
+        text-decoration: none;
+      }
+
+      .header-nav {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-md);
+      }
+
+      .toggles {
+        display: flex;
+        gap: var(--spacing-sm);
+      }
+
+      main {
+        min-height: calc(100vh - 200px);
+      }
+    </style>
+  </body>
+</html>

@@ -1,0 +1,94 @@
+---
+/**
+ * BaseLayout - Main layout for gusciora.pl (hub site)
+ *
+ * Minimal layout per FR-016:
+ * - No footer
+ * - No additional navigation
+ * - Pure visual hub
+ */
+
+import '../styles/global.css';
+import ThemeToggle from '../components/ThemeToggle.astro';
+import LangToggle from '../components/LangToggle.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  locale?: 'pl' | 'en';
+}
+
+const {
+  title,
+  description = 'Gusciora - Family Hub',
+  locale = 'pl'
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!DOCTYPE html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+
+    <!-- Theme initialization - inline to prevent FOUC -->
+    <script is:inline>
+      (function() {
+        const theme = localStorage.getItem('gusciora-theme') ||
+          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.classList.toggle('dark', theme === 'dark');
+      })();
+    </script>
+  </head>
+  <body class="hub-layout">
+    <!-- FR-016: Minimal layout - toggles only, no navigation -->
+    <div class="toggles-container">
+      <LangToggle currentLocale={locale} />
+      <ThemeToggle />
+    </div>
+
+    <main class="hub-main">
+      <slot />
+    </main>
+
+    <style>
+      .hub-layout {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      .toggles-container {
+        position: fixed;
+        top: var(--spacing-md);
+        right: var(--spacing-md);
+        display: flex;
+        gap: var(--spacing-sm);
+        z-index: 100;
+      }
+
+      .hub-main {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: var(--spacing-xl);
+      }
+    </style>
+  </body>
+</html>

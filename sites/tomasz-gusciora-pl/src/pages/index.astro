@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Tomasz Gusciora - Szkolenie Claude Code"
+  description="2-dniowy warsztat Claude Code dla zespołów deweloperskich. 13 lat doświadczenia, praktyczna transformacja."
+  locale="pl"
+>
+  <div class="container">
+    <section class="hero">
+      <h1>Szkolenie Claude Code</h1>
+      <p class="hero-subtitle">Praktyczny 2-dniowy warsztat dla zespołów deweloperskich</p>
+      <p class="hero-description">
+        Naucz swój zespół efektywnego wykorzystania AI w codziennej pracy programistycznej.
+      </p>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .hero {
+    text-align: center;
+    padding: var(--spacing-3xl) 0;
+  }
+
+  .hero h1 {
+    font-size: var(--text-5xl);
+    margin-bottom: var(--spacing-md);
+    color: var(--color-text);
+  }
+
+  .hero-subtitle {
+    font-size: var(--text-xl);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .hero-description {
+    max-width: 600px;
+    margin: 0 auto;
+    color: var(--color-text-muted);
+  }
+
+  @media (max-width: 640px) {
+    .hero h1 {
+      font-size: var(--text-3xl);
+    }
+
+    .hero-subtitle {
+      font-size: var(--text-lg);
+    }
+  }
+</style>
