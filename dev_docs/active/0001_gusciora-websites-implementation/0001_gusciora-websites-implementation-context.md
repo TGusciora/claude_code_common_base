@@ -5,6 +5,46 @@
 
 ---
 
+## SESSION PROGRESS - 2026-01-06 (Iteration 4 - continued)
+
+**Session ID:** 20260106-151703-26314
+**Branch:** ralph/0001_gusciora-websites-implementation
+
+**Selected Tasks:** Phase 3 - gusciora.pl hub implementation (3.1-3.5)
+- Rationale: Hub site completion - verified existing implementation + added EN page
+
+**Test-First Summary:**
+- Business goals defined: Yes - Family hub navigates to correct member sites
+- Acceptance criteria: Image nav, fallback buttons, PL/EN toggle, theme toggle, minimal layout
+- Tests written: 0 (static site build verification)
+- Tests passing: Build succeeds (2 pages: PL + EN in 361ms)
+- Regression suite: PASS
+
+**Completed:**
+- [x] 3.1 Image navigation - Hub cards link to tomasz.gusciora.pl and adriana.gusciora.pl
+- [x] 3.2 Fallback button navigation - "Idź do Tomasz/Adriana" (PL) and "Go to Tomasz/Adriana" (EN)
+- [x] 3.3 Language toggle (EN/PL) - LangToggle component reused, fixed position
+- [x] 3.4 Theme toggle (light/dark) - ThemeToggle component reused, fixed position
+- [x] 3.5 Minimal layout (FR-016) - No footer, no nav header, just hub cards + toggles
+
+**Files Created:**
+- `sites/gusciora-pl/src/pages/en/index.astro` - English version of hub page
+
+**Files Modified:**
+- `sites/gusciora-pl/src/pages/index.astro` - Fixed trailing slash on tomasz link
+
+**Implementation Notes:**
+- Hub uses placeholder icons (SVG silhouettes) until real photos are provided
+- English version links to /en/ paths on tomasz.gusciora.pl
+- Polish version links to root paths
+- Build outputs 2 pages: /index.html and /en/index.html
+
+**Next Iteration Should:**
+- Verify Phase 4: Caddy redirect for adriana.gusciora.pl (4.1-4.2) - already configured
+- Begin Phase 5: Testing & Deployment verification
+
+---
+
 ## SESSION PROGRESS - 2026-01-06 (Iteration 4)
 
 **Session ID:** 20260106-151703-26314

@@ -98,26 +98,26 @@
 
 ## Phase 3: gusciora.pl Implementation
 
-- [ ] 3.1 Image navigation
+- [x] 3.1 Image navigation
   - Man image → tomasz.gusciora.pl
   - Woman image → adriana.gusciora.pl
   - Clickable on desktop and mobile
   - AC: Images navigate to correct destinations
 
-- [ ] 3.2 Fallback button navigation
+- [x] 3.2 Fallback button navigation
   - "Go to Tomasz" button
   - "Go to Adriana" button
   - AC: Buttons visible as alternative navigation
 
-- [ ] 3.3 Language toggle (EN/PL)
+- [x] 3.3 Language toggle (EN/PL)
   - Reuse component from Phase 1
   - AC: Toggle functional; preference persisted
 
-- [ ] 3.4 Theme toggle (light/dark)
+- [x] 3.4 Theme toggle (light/dark)
   - Reuse component from Phase 1
   - AC: Toggle functional; preference persisted
 
-- [ ] 3.5 Minimal layout (FR-016)
+- [x] 3.5 Minimal layout (FR-016)
   - No footer
   - No additional navigation
   - Pure visual hub
@@ -184,7 +184,7 @@
 |-------|-------|----------|-----------|
 | Phase 1 | 6 | 6 | 0 |
 | Phase 2 | 10 | 10 | 0 |
-| Phase 3 | 5 | 0 | 5 |
+| Phase 3 | 5 | 5 | 0 |
 | Phase 4 | 2 | 0 | 2 |
 | Phase 5 | 7 | 0 | 7 |
-| **Total** | **30** | **16** | **14** |
+| **Total** | **30** | **21** | **9** |

@@ -1,16 +1,16 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout
   title="Gusciora - Hub"
   description="Gusciora family hub - navigate to family member sites"
-  locale="pl"
+  locale="en"
 >
   <div class="hub-content">
     <!-- FR-001: Visual hub with two clickable images -->
     <div class="hub-navigation">
-      <a href="https://tomasz.gusciora.pl/" class="hub-card">
+      <a href="https://tomasz.gusciora.pl/en/" class="hub-card">
         <div class="hub-image-placeholder" aria-label="Tomasz">
           <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -18,7 +18,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </svg>
         </div>
         <!-- FR-002: Fallback button navigation -->
-        <span class="hub-button">Idź do Tomasz</span>
+        <span class="hub-button">Go to Tomasz</span>
       </a>
 
       <a href="https://adriana.gusciora.pl" class="hub-card">
@@ -29,7 +29,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </svg>
         </div>
         <!-- FR-002: Fallback button navigation -->
-        <span class="hub-button">Idź do Adriana</span>
+        <span class="hub-button">Go to Adriana</span>
       </a>
     </div>
   </div>
