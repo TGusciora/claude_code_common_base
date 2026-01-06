@@ -5,6 +5,68 @@
 
 ---
 
+## SESSION PROGRESS - 2026-01-06 (Iteration 5 - Phase 5 Assessment)
+
+**Session ID:** 20260106-151703-26314
+**Branch:** ralph/0001_gusciora-websites-implementation
+
+**Selected Tasks:** Phase 5 assessment and build verification
+- Rationale: All Phase 5 tasks require VPS deployment - cannot be completed locally
+
+**Test-First Summary:**
+- Business goals defined: Yes - Verify sites build and are ready for deployment
+- Acceptance criteria: Both Astro projects build successfully
+- Tests written: 0 (build verification)
+- Tests passing: N/A
+- Regression suite: N/A
+
+**Verified:**
+- [x] tomasz-gusciora-pl builds: 2 pages in 424ms
+- [x] gusciora-pl builds: 2 pages in 367ms
+- [x] Caddyfile configuration correct for all domains
+- [x] All Phase 1-4 implementation complete
+
+**Phase 5 Status - BLOCKED ON VPS DEPLOYMENT:**
+All remaining tasks require live VPS access:
+| Task | Status | Blocker |
+|------|--------|---------|
+| 5.1 HTTPS verification | Blocked | Requires Caddy on VPS |
+| 5.2 www redirect testing | Blocked | Requires live DNS |
+| 5.3 localStorage testing | Blocked | Requires different origins |
+| 5.4 Mobile responsiveness | Blocked | Requires live site |
+| 5.5 Form submission testing | Blocked | Requires Formspark ID + live site |
+| 5.6 Booking integration | Blocked | Requires Cal.com username + live site |
+| 5.7 Deployment to VPS | Blocked | Manual deployment step |
+
+**User Actions Required Before Deployment:**
+1. Create Formspark account and get form ID
+   - Replace `REPLACE_WITH_FORMSPARK_ID` in `sites/tomasz-gusciora-pl/src/components/ContactForm.astro:51`
+2. Set up Cal.com account with discovery event type
+   - Replace `REPLACE_WITH_CAL_USERNAME` in `sites/tomasz-gusciora-pl/src/components/Booking.astro:36`
+
+**Deployment Steps (for user):**
+```bash
+# 1. Build both sites
+cd sites/tomasz-gusciora-pl && npm run build
+cd ../gusciora-pl && npm run build
+
+# 2. Copy dist folders to VPS
+scp -r sites/tomasz-gusciora-pl/dist/* user@vps:/var/www/tomasz/
+scp -r sites/gusciora-pl/dist/* user@vps:/var/www/hub/
+
+# 3. Copy Caddyfile to VPS
+scp sites/Caddyfile user@vps:/etc/caddy/Caddyfile
+
+# 4. Restart Caddy on VPS
+ssh user@vps "sudo systemctl reload caddy"
+```
+
+**Recommendation:**
+Ralph has completed all tasks that can be done locally (Phases 1-4: 23/30).
+Phase 5 tasks should be verified by user after VPS deployment.
+
+---
+
 ## SESSION PROGRESS - 2026-01-06 (Iteration 4 - Phase 4 verification)
 
 **Session ID:** 20260106-151703-26314
