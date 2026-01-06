@@ -32,6 +32,7 @@
       "Bash(grep:*)",
       "Bash(echo:*)",
       "Bash(.claude/scripts/*)",
+      "Bash(.claude/scripts/ralph/*)",
       "Bash(mkdir:*)"
     ],
     "ask": [
