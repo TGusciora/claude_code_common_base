@@ -1,0 +1,270 @@
+---
+/**
+ * Bio - Trainer credentials and experience section
+ *
+ * Displays professional background to build trust.
+ */
+
+interface Props {
+  locale: 'pl' | 'en';
+}
+
+const { locale } = Astro.props;
+
+const content = {
+  pl: {
+    title: 'O Trenerze',
+    intro: 'Tomasz Gusciora',
+    experience: '13+ lat doświadczenia',
+    experienceDesc: 'w tworzeniu oprogramowania i prowadzeniu zespołów deweloperskich',
+    conference: 'Prelegent na konferencjach',
+    conferenceDesc: 'dzielący się wiedzą o AI i nowoczesnych narzędziach programistycznych',
+    practitioner: 'Praktyk AI',
+    practitionerDesc: 'aktywnie wykorzystujący Claude Code w codziennej pracy od pierwszych wersji',
+    credentials: [
+      'Twórca demystifai.blog — bloga o praktycznym AI w programowaniu',
+      'Autor newslettera demystifai na Substack',
+      'Doświadczenie w firmach od startupów po korporacje',
+    ],
+  },
+  en: {
+    title: 'About the Trainer',
+    intro: 'Tomasz Gusciora',
+    experience: '13+ years of experience',
+    experienceDesc: 'in software development and leading development teams',
+    conference: 'Conference speaker',
+    conferenceDesc: 'sharing knowledge about AI and modern development tools',
+    practitioner: 'AI Practitioner',
+    practitionerDesc: 'actively using Claude Code in daily work since early versions',
+    credentials: [
+      'Creator of demystifai.blog — a blog about practical AI in programming',
+      'Author of the demystifai newsletter on Substack',
+      'Experience in companies from startups to corporations',
+    ],
+  },
+};
+
+const t = content[locale];
+---
+
+<section class="bio" id="trainer">
+  <div class="container">
+    <h2 class="section-title">{t.title}</h2>
+
+    <div class="bio-content">
+      <div class="bio-photo">
+        <!-- Placeholder for professional photo -->
+        <div class="photo-placeholder">
+          <span class="photo-initials">TG</span>
+        </div>
+      </div>
+
+      <div class="bio-details">
+        <h3 class="bio-name">{t.intro}</h3>
+
+        <div class="bio-highlights">
+          <div class="highlight">
+            <div class="highlight-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 20h9"></path>
+                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+              </svg>
+            </div>
+            <div class="highlight-text">
+              <strong>{t.experience}</strong>
+              <span>{t.experienceDesc}</span>
+            </div>
+          </div>
+
+          <div class="highlight">
+            <div class="highlight-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+            </div>
+            <div class="highlight-text">
+              <strong>{t.conference}</strong>
+              <span>{t.conferenceDesc}</span>
+            </div>
+          </div>
+
+          <div class="highlight">
+            <div class="highlight-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                <polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline>
+                <polyline points="7.5 19.79 7.5 14.6 3 12"></polyline>
+                <polyline points="21 12 16.5 14.6 16.5 19.79"></polyline>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+              </svg>
+            </div>
+            <div class="highlight-text">
+              <strong>{t.practitioner}</strong>
+              <span>{t.practitionerDesc}</span>
+            </div>
+          </div>
+        </div>
+
+        <ul class="bio-credentials">
+          {t.credentials.map((credential) => (
+            <li>{credential}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .bio {
+    padding: var(--spacing-3xl) 0;
+  }
+
+  .section-title {
+    text-align: center;
+    margin-bottom: var(--spacing-2xl);
+    color: var(--color-text);
+  }
+
+  .bio-content {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: var(--spacing-2xl);
+    align-items: start;
+  }
+
+  .bio-photo {
+    display: flex;
+    justify-content: center;
+  }
+
+  .photo-placeholder {
+    width: 180px;
+    height: 180px;
+    border-radius: var(--radius-full);
+    background: var(--color-bg-secondary);
+    border: 3px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .photo-initials {
+    font-size: var(--text-4xl);
+    font-weight: 700;
+    color: var(--color-text-muted);
+  }
+
+  .bio-details {
+    max-width: 700px;
+  }
+
+  .bio-name {
+    font-size: var(--text-2xl);
+    margin-bottom: var(--spacing-lg);
+    color: var(--color-text);
+  }
+
+  .bio-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .highlight {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: flex-start;
+  }
+
+  .highlight-icon {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    background: var(--color-bg-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+  }
+
+  .highlight-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+
+  .highlight-text strong {
+    color: var(--color-text);
+    font-size: var(--text-base);
+  }
+
+  .highlight-text span {
+    color: var(--color-text-secondary);
+    font-size: var(--text-sm);
+  }
+
+  .bio-credentials {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .bio-credentials li {
+    position: relative;
+    padding-left: var(--spacing-lg);
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text-secondary);
+    font-size: var(--text-sm);
+  }
+
+  .bio-credentials li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-success);
+    font-weight: bold;
+  }
+
+  @media (max-width: 768px) {
+    .bio-content {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .bio-photo {
+      margin-bottom: var(--spacing-md);
+    }
+
+    .photo-placeholder {
+      width: 140px;
+      height: 140px;
+    }
+
+    .photo-initials {
+      font-size: var(--text-3xl);
+    }
+
+    .bio-details {
+      max-width: 100%;
+    }
+
+    .highlight {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .bio-credentials {
+      text-align: left;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+  }
+</style>

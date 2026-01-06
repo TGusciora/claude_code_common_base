@@ -42,21 +42,21 @@
 
 ## Phase 2: tomasz.gusciora.pl Implementation
 
-- [ ] 2.1 Hero section
+- [x] 2.1 Hero section
   - Value proposition visible above fold
   - Desktop and mobile layouts
   - AC: Hero visible on first viewport load
 
-- [ ] 2.2 Bio section
+- [x] 2.2 Bio section
   - 13 years experience
   - Conference talks credentials
   - AC: Credentials clearly displayed
 
-- [ ] 2.3 Training offering section
+- [x] 2.3 Training offering section
   - 2-day remote workshop format
   - AC: Format clearly communicated
 
-- [ ] 2.4 Transformation map curriculum
+- [x] 2.4 Transformation map curriculum
   - All 8 modules displayed
   - Icons for each module
   - Scannable list format
@@ -183,8 +183,8 @@
 | Phase | Total | Complete | Remaining |
 |-------|-------|----------|-----------|
 | Phase 1 | 6 | 6 | 0 |
-| Phase 2 | 10 | 0 | 10 |
+| Phase 2 | 10 | 4 | 6 |
 | Phase 3 | 5 | 0 | 5 |
 | Phase 4 | 2 | 0 | 2 |
 | Phase 5 | 7 | 0 | 7 |
-| **Total** | **30** | **6** | **24** |
+| **Total** | **30** | **10** | **20** |

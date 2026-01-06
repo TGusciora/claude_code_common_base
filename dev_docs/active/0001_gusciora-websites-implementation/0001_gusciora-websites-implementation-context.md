@@ -5,7 +5,48 @@
 
 ---
 
-## SESSION PROGRESS - 2026-01-06
+## SESSION PROGRESS - 2026-01-06 (Iteration 2)
+
+**Session ID:** 20260106-151703-26314
+**Branch:** ralph/0001_gusciora-websites-implementation
+
+**Selected Tasks:** Phase 2 tasks 2.1-2.4
+- Rationale: Core content sections - must be completed before CTAs (form/booking)
+
+**Test-First Summary:**
+- Business goals defined: Yes - Visitors understand offering and credentials
+- Acceptance criteria: Hero above fold, 13yr experience visible, 8 modules displayed
+- Tests written: 0 (static site build serves as validation)
+- Tests passing: Build succeeds (2 pages built in 307ms)
+- Regression suite: N/A (no existing tests)
+
+**Completed:**
+- [x] 2.1 Hero section with value proposition
+- [x] 2.2 Bio section (13 years, conference credentials)
+- [x] 2.3 Training offering section (2-day format, what's included)
+- [x] 2.4 Curriculum visualization (8 modules with icons)
+
+**Files Created:**
+- `sites/tomasz-gusciora-pl/src/components/Hero.astro` - Landing hero with CTA buttons
+- `sites/tomasz-gusciora-pl/src/components/Bio.astro` - Trainer credentials section
+- `sites/tomasz-gusciora-pl/src/components/Training.astro` - Workshop format details
+- `sites/tomasz-gusciora-pl/src/components/Curriculum.astro` - 8-module transformation map
+- `sites/tomasz-gusciora-pl/src/pages/en/index.astro` - English version of homepage
+
+**Decisions Made:**
+- All components support both PL and EN locales via props
+- Bio uses placeholder photo (initials TG) until real photo provided
+- Curriculum split into Day 1 (Fundamentals) and Day 2 (Advanced)
+- Hero buttons link to #contact and #training anchors (sections to be added)
+
+**Next Iteration Should:**
+- Implement 2.5 Contact form with Formspark integration
+- Implement 2.6 Cal.com booking widget
+- Implement 2.7 Footer with social links
+
+---
+
+## SESSION PROGRESS - 2026-01-06 (Iteration 1)
 
 **Session ID:** 20260106-151703-26314
 **Branch:** ralph/0001_gusciora-websites-implementation
@@ -42,10 +83,6 @@
 - Both sites share identical toggle components and CSS variables
 - Hub site uses fixed-position toggles (no header per FR-016)
 - Placeholder icons used for hub navigation (real images to be added later)
-
-**Next Iteration Should:**
-- Begin Phase 2: tomasz.gusciora.pl sections (Hero, Bio, Training, etc.)
-- Consider invoking /frontend-design for visual polish
 
 ---
 

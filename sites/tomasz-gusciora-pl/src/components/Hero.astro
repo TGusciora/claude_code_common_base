@@ -1,0 +1,150 @@
+---
+/**
+ * Hero - Main landing section with value proposition
+ *
+ * Visible above the fold with clear call-to-action.
+ * Responsive: desktop centered, mobile stacked.
+ */
+
+interface Props {
+  locale: 'pl' | 'en';
+}
+
+const { locale } = Astro.props;
+
+const content = {
+  pl: {
+    headline: 'Szkolenie Claude Code dla Zespołów',
+    subheadline: 'Praktyczny 2-dniowy warsztat zdalny',
+    description: 'Naucz swój zespół efektywnego wykorzystania AI w codziennej pracy programistycznej. Od podstaw po zaawansowane techniki — wszystko w praktycznych ćwiczeniach.',
+    cta: 'Umów rozmowę',
+    secondary: 'Dowiedz się więcej',
+  },
+  en: {
+    headline: 'Claude Code Training for Teams',
+    subheadline: 'Practical 2-Day Remote Workshop',
+    description: 'Teach your team to effectively use AI in everyday programming work. From basics to advanced techniques — all through hands-on exercises.',
+    cta: 'Schedule a call',
+    secondary: 'Learn more',
+  },
+};
+
+const t = content[locale];
+---
+
+<section class="hero" id="hero">
+  <div class="container hero-content">
+    <h1 class="hero-headline">{t.headline}</h1>
+    <p class="hero-subheadline">{t.subheadline}</p>
+    <p class="hero-description">{t.description}</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn btn-primary">{t.cta}</a>
+      <a href="#training" class="btn btn-secondary">{t.secondary}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding: var(--spacing-3xl) 0;
+    background: var(--color-bg-secondary);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .hero-content {
+    text-align: center;
+    max-width: 800px;
+  }
+
+  .hero-headline {
+    font-size: var(--text-5xl);
+    margin-bottom: var(--spacing-md);
+    color: var(--color-text);
+    line-height: 1.1;
+  }
+
+  .hero-subheadline {
+    font-size: var(--text-2xl);
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-lg);
+    font-weight: 600;
+  }
+
+  .hero-description {
+    font-size: var(--text-lg);
+    color: var(--color-text-secondary);
+    max-width: 600px;
+    margin: 0 auto var(--spacing-xl);
+    line-height: 1.6;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md) var(--spacing-xl);
+    font-size: var(--text-base);
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background: var(--color-primary);
+    color: var(--color-primary-text);
+  }
+
+  .btn-primary:hover {
+    background: var(--color-primary-hover);
+    text-decoration: none;
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--color-text);
+    border: 2px solid var(--color-border);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      padding: var(--spacing-2xl) 0;
+    }
+
+    .hero-headline {
+      font-size: var(--text-3xl);
+    }
+
+    .hero-subheadline {
+      font-size: var(--text-xl);
+    }
+
+    .hero-description {
+      font-size: var(--text-base);
+    }
+
+    .hero-actions {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .btn {
+      width: 100%;
+      max-width: 280px;
+    }
+  }
+</style>
