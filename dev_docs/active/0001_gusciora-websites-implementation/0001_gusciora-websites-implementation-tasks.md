@@ -127,12 +127,12 @@
 
 ## Phase 4: adriana.gusciora.pl Redirect
 
-- [ ] 4.1 Caddy redirect configuration
+- [x] 4.1 Caddy redirect configuration
   - HTTP 301 permanent redirect
   - Target: https://www.instagram.com/ada.odrelacji/
   - AC: Browser redirects immediately; no page displayed
 
-- [ ] 4.2 www handling
+- [x] 4.2 www handling
   - www.adriana.gusciora.pl also redirects
   - AC: www variant redirects correctly
 
@@ -185,6 +185,6 @@
 | Phase 1 | 6 | 6 | 0 |
 | Phase 2 | 10 | 10 | 0 |
 | Phase 3 | 5 | 5 | 0 |
-| Phase 4 | 2 | 0 | 2 |
+| Phase 4 | 2 | 2 | 0 |
 | Phase 5 | 7 | 0 | 7 |
-| **Total** | **30** | **21** | **9** |
+| **Total** | **30** | **23** | **7** |

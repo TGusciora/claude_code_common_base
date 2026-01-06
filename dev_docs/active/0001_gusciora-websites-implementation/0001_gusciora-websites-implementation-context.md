@@ -5,6 +5,46 @@
 
 ---
 
+## SESSION PROGRESS - 2026-01-06 (Iteration 4 - Phase 4 verification)
+
+**Session ID:** 20260106-151703-26314
+**Branch:** ralph/0001_gusciora-websites-implementation
+
+**Selected Tasks:** Phase 4 - adriana.gusciora.pl redirect (4.1-4.2)
+- Rationale: Verified Caddyfile already contains correct redirect configuration
+
+**Test-First Summary:**
+- Business goals defined: Yes - adriana.gusciora.pl redirects to Instagram
+- Acceptance criteria: 301 redirect to Instagram, www variant also redirects
+- Tests written: 0 (config file verification)
+- Tests passing: N/A (requires live deployment)
+- Regression suite: N/A
+
+**Completed:**
+- [x] 4.1 Caddy redirect configuration - `redir https://www.instagram.com/ada.odrelacji/ permanent`
+- [x] 4.2 www handling - www.adriana.gusciora.pl also redirects
+
+**Verification Results:**
+- Caddyfile (lines 35-42) contains correct configuration for both domains
+- Both use `permanent` directive (HTTP 301)
+- Target URL is correct: https://www.instagram.com/ada.odrelacji/
+
+**Phase 5 Status (Remaining Tasks):**
+All remaining tasks require live VPS deployment:
+- 5.1 HTTPS verification - Caddy will auto-provision certificates on deploy
+- 5.2 www redirect testing - Configured in Caddyfile, needs live test
+- 5.3 Cross-site localStorage testing - Requires live browser test
+- 5.4 Mobile responsiveness testing - Already verified locally, needs live test
+- 5.5 Form submission testing - Requires Formspark ID configuration + live test
+- 5.6 Booking integration testing - Requires Cal.com username configuration + live test
+- 5.7 Deployment to VPS - Manual: `npm run build` + copy to /var/www/
+
+**Configuration Required (before deployment):**
+- Replace `REPLACE_WITH_FORMSPARK_ID` in `sites/tomasz-gusciora-pl/src/components/ContactForm.astro`
+- Replace `REPLACE_WITH_CAL_USERNAME` in `sites/tomasz-gusciora-pl/src/components/Booking.astro`
+
+---
+
 ## SESSION PROGRESS - 2026-01-06 (Iteration 4 - continued)
 
 **Session ID:** 20260106-151703-26314
