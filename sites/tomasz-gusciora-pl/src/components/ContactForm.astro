@@ -1,13 +1,12 @@
 ---
 /**
- * ContactForm - Primary CTA for training inquiries
+ * ContactForm - Polished contact form with modern styling
  *
  * Features:
- * - Formspark integration
- * - Honeypot spam protection (hidden field)
- * - Client-side validation
- * - Success/error feedback
- * - PL/EN locale support
+ * - Floating label inputs
+ * - Animated focus states
+ * - Form validation feedback
+ * - Gradient accent border
  */
 
 interface Props {
@@ -18,8 +17,9 @@ const { locale } = Astro.props;
 
 const content = {
   pl: {
-    title: 'Skontaktuj się',
-    subtitle: 'Masz pytania o szkolenie? Napisz do mnie.',
+    sectionLabel: 'Kontakt',
+    title: 'Porozmawiajmy',
+    subtitle: 'Masz pytania o szkolenie? Napisz do mnie - odpowiadam na wszystkie wiadomości.',
     namePlaceholder: 'Twoje imię',
     emailPlaceholder: 'Twój email',
     messagePlaceholder: 'O czym chciałbyś porozmawiać?',
@@ -29,131 +29,182 @@ const content = {
     error: 'Coś poszło nie tak. Spróbuj ponownie lub napisz bezpośrednio na tomasz@demystifai.blog',
     required: 'To pole jest wymagane',
     invalidEmail: 'Podaj prawidłowy adres email',
+    directContact: 'lub napisz bezpośrednio',
   },
   en: {
-    title: 'Get in Touch',
-    subtitle: 'Questions about the training? Send me a message.',
+    sectionLabel: 'Contact',
+    title: "Let's Talk",
+    subtitle: 'Questions about the training? Send me a message - I respond to all inquiries.',
     namePlaceholder: 'Your name',
     emailPlaceholder: 'Your email',
     messagePlaceholder: 'What would you like to discuss?',
     submit: 'Send Message',
     sending: 'Sending...',
-    success: 'Thank you! I\'ll respond as soon as possible.',
+    success: "Thank you! I'll respond as soon as possible.",
     error: 'Something went wrong. Please try again or email tomasz@demystifai.blog directly.',
     required: 'This field is required',
     invalidEmail: 'Please enter a valid email address',
+    directContact: 'or email directly',
   },
 };
 
 const t = content[locale];
-
-// Formspark form ID - to be configured
-const FORMSPARK_FORM_ID = 'REPLACE_WITH_FORMSPARK_ID';
+const FORMSPARK_FORM_ID = 'U4CWD0kpO';
 ---
 
-<section class="contact" id="contact">
-  <div class="container contact-container">
-    <div class="contact-header">
-      <h2 class="contact-title">{t.title}</h2>
-      <p class="contact-subtitle">{t.subtitle}</p>
+<section class="contact section" id="contact">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="section-header">
+      <div class="section-label">
+        <span class="label-line"></span>
+        <span class="label-text">{t.sectionLabel}</span>
+      </div>
+      <h2 class="section-title">{t.title}</h2>
+      <p class="section-subtitle">{t.subtitle}</p>
     </div>
 
-    <form
-      class="contact-form"
-      action={`https://submit-form.com/${FORMSPARK_FORM_ID}`}
-      method="POST"
-      data-success={t.success}
-      data-error={t.error}
-      data-sending={t.sending}
-      data-submit={t.submit}
-    >
-      <!-- Honeypot field for spam protection -->
-      <input type="text" name="_honeypot" class="honeypot" tabindex="-1" autocomplete="off" />
+    <div class="contact-wrapper">
+      <form
+        class="contact-form"
+        action={`https://submit-form.com/${FORMSPARK_FORM_ID}`}
+        method="POST"
+        data-success={t.success}
+        data-error={t.error}
+        data-sending={t.sending}
+        data-submit={t.submit}
+      >
+        <!-- Honeypot -->
+        <input type="text" name="_honeypot" class="honeypot" tabindex="-1" autocomplete="off" />
+        <input type="hidden" name="_redirect" value="false" />
 
-      <!-- Hidden field for redirect (Formspark) -->
-      <input type="hidden" name="_redirect" value="false" />
+        <div class="form-grid">
+          <div class="form-group">
+            <input
+              type="text"
+              id="name"
+              name="name"
+              class="form-input"
+              placeholder=" "
+              required
+              autocomplete="name"
+            />
+            <label for="name" class="form-label">{t.namePlaceholder}</label>
+            <div class="input-border"></div>
+          </div>
 
-      <div class="form-group">
-        <label for="name" class="form-label">{t.namePlaceholder}</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          class="form-input"
-          placeholder={t.namePlaceholder}
-          required
-          autocomplete="name"
-        />
+          <div class="form-group">
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-input"
+              placeholder=" "
+              required
+              autocomplete="email"
+            />
+            <label for="email" class="form-label">{t.emailPlaceholder}</label>
+            <div class="input-border"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <textarea
+            id="message"
+            name="message"
+            class="form-input form-textarea"
+            placeholder=" "
+            rows="5"
+            required
+          ></textarea>
+          <label for="message" class="form-label">{t.messagePlaceholder}</label>
+          <div class="input-border"></div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary form-submit">
+            <span class="btn-text">{t.submit}</span>
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="22" y1="2" x2="11" y2="13"/>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="form-status" aria-live="polite"></div>
+      </form>
+
+      <div class="direct-contact">
+        <span class="direct-label">{t.directContact}</span>
+        <a href="mailto:tomasz@demystifai.blog" class="direct-email">
+          tomasz@demystifai.blog
+        </a>
       </div>
-
-      <div class="form-group">
-        <label for="email" class="form-label">{t.emailPlaceholder}</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          class="form-input"
-          placeholder={t.emailPlaceholder}
-          required
-          autocomplete="email"
-        />
-      </div>
-
-      <div class="form-group">
-        <label for="message" class="form-label">{t.messagePlaceholder}</label>
-        <textarea
-          id="message"
-          name="message"
-          class="form-input form-textarea"
-          placeholder={t.messagePlaceholder}
-          rows="5"
-          required
-        ></textarea>
-      </div>
-
-      <button type="submit" class="btn btn-primary form-submit">
-        {t.submit}
-      </button>
-
-      <div class="form-status" aria-live="polite"></div>
-    </form>
+    </div>
   </div>
 </section>
 
 <style>
   .contact {
-    padding: var(--spacing-3xl) 0;
-    background: var(--color-bg);
+    background: var(--color-bg-secondary);
+    position: relative;
   }
 
-  .contact-container {
-    max-width: 600px;
-  }
-
-  .contact-header {
+  /* Section Header */
+  .section-header {
     text-align: center;
-    margin-bottom: var(--spacing-2xl);
+    margin-bottom: var(--spacing-3xl);
   }
 
-  .contact-title {
-    font-size: var(--text-3xl);
-    margin-bottom: var(--spacing-sm);
-    color: var(--color-text);
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
   }
 
-  .contact-subtitle {
+  .label-line {
+    width: 48px;
+    height: 2px;
+    background: var(--gradient-primary);
+    border-radius: var(--radius-full);
+  }
+
+  .label-text {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
+    color: var(--color-primary);
+  }
+
+  .section-title {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .section-subtitle {
     font-size: var(--text-lg);
     color: var(--color-text-secondary);
-    margin: 0;
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: var(--leading-relaxed);
+  }
+
+  /* Form Wrapper */
+  .contact-wrapper {
+    max-width: 640px;
+    margin: 0 auto;
   }
 
   .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-lg);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-2xl);
+    padding: var(--spacing-2xl);
+    box-shadow: var(--shadow-lg);
   }
 
-  /* Honeypot - hidden from real users */
   .honeypot {
     position: absolute;
     left: -9999px;
@@ -162,27 +213,35 @@ const FORMSPARK_FORM_ID = 'REPLACE_WITH_FORMSPARK_ID';
     pointer-events: none;
   }
 
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-xs);
+  /* Form Grid */
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
   }
 
-  .form-label {
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--color-text);
+  /* Form Group */
+  .form-group {
+    position: relative;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .form-grid .form-group {
+    margin-bottom: 0;
   }
 
   .form-input {
-    padding: var(--spacing-md);
+    width: 100%;
+    padding: var(--spacing-lg) var(--spacing-md) var(--spacing-sm);
+    font-family: var(--font-body);
     font-size: var(--text-base);
-    font-family: var(--font-sans);
-    border: 2px solid var(--color-border);
-    border-radius: var(--radius-md);
-    background: var(--color-bg);
     color: var(--color-text);
-    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    background: var(--color-bg);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-fast);
+    outline: none;
   }
 
   .form-input:hover {
@@ -190,85 +249,153 @@ const FORMSPARK_FORM_ID = 'REPLACE_WITH_FORMSPARK_ID';
   }
 
   .form-input:focus {
-    outline: none;
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-  }
-
-  .form-input::placeholder {
-    color: var(--color-text-muted);
+    background: var(--color-surface);
   }
 
   .form-textarea {
     resize: vertical;
-    min-height: 120px;
+    min-height: 140px;
   }
 
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: var(--spacing-md) var(--spacing-xl);
+  /* Floating Label */
+  .form-label {
+    position: absolute;
+    left: var(--spacing-md);
+    top: 50%;
+    transform: translateY(-50%);
     font-size: var(--text-base);
-    font-weight: 600;
-    border-radius: var(--radius-md);
-    text-decoration: none;
+    color: var(--color-text-muted);
+    pointer-events: none;
     transition: all var(--transition-fast);
-    cursor: pointer;
-    border: none;
+    background: transparent;
+    padding: 0 var(--spacing-xs);
   }
 
-  .btn-primary {
-    background: var(--color-primary);
-    color: var(--color-primary-text);
+  .form-textarea + .form-label {
+    top: var(--spacing-lg);
+    transform: none;
   }
 
-  .btn-primary:hover:not(:disabled) {
-    background: var(--color-primary-hover);
+  .form-input:focus + .form-label,
+  .form-input:not(:placeholder-shown) + .form-label {
+    top: 0;
+    transform: translateY(-50%);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--color-primary);
+    background: var(--color-surface);
   }
 
-  .btn-primary:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
+  .form-input:focus ~ .form-label,
+  .form-input:not(:placeholder-shown) ~ .form-label {
+    top: 0;
+    transform: translateY(-50%);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--color-primary);
+    background: var(--color-surface);
+  }
+
+  .form-textarea:focus + .form-label,
+  .form-textarea:not(:placeholder-shown) + .form-label {
+    top: 0;
+    transform: translateY(-50%);
+  }
+
+  /* Input Border Accent */
+  .input-border {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--gradient-primary);
+    transition: all var(--transition-normal);
+    border-radius: var(--radius-full);
+    transform: translateX(-50%);
+  }
+
+  .form-input:focus ~ .input-border {
+    width: calc(100% - 4px);
+  }
+
+  /* Form Actions */
+  .form-actions {
+    display: flex;
+    justify-content: flex-start;
   }
 
   .form-submit {
-    align-self: flex-start;
+    padding: var(--spacing-md) var(--spacing-2xl);
   }
 
+  .btn-icon {
+    width: 18px;
+    height: 18px;
+    transition: transform var(--transition-fast);
+  }
+
+  .form-submit:hover .btn-icon {
+    transform: translate(4px, -4px);
+  }
+
+  /* Form Status */
   .form-status {
     text-align: center;
     font-size: var(--text-base);
     padding: var(--spacing-md);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
     display: none;
+    margin-top: var(--spacing-lg);
   }
 
   .form-status.success {
     display: block;
-    background: rgba(5, 150, 105, 0.1);
+    background: var(--color-success-subtle);
     color: var(--color-success);
     border: 1px solid var(--color-success);
   }
 
   .form-status.error {
     display: block;
-    background: rgba(220, 38, 38, 0.1);
+    background: var(--color-error-subtle);
     color: var(--color-error);
     border: 1px solid var(--color-error);
   }
 
+  /* Direct Contact */
+  .direct-contact {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-xl);
+    font-size: var(--text-sm);
+  }
+
+  .direct-label {
+    color: var(--color-text-muted);
+  }
+
+  .direct-email {
+    color: var(--color-primary);
+    font-weight: 500;
+  }
+
+  /* Responsive */
   @media (max-width: 640px) {
-    .contact {
-      padding: var(--spacing-2xl) 0;
+    .form-grid {
+      grid-template-columns: 1fr;
     }
 
-    .contact-title {
-      font-size: var(--text-2xl);
+    .contact-form {
+      padding: var(--spacing-lg);
     }
 
     .form-submit {
       width: 100%;
+      justify-content: center;
     }
   }
 </style>
@@ -282,27 +409,32 @@ const FORMSPARK_FORM_ID = 'REPLACE_WITH_FORMSPARK_ID';
         e.preventDefault();
 
         const submitBtn = form.querySelector<HTMLButtonElement>('.form-submit');
+        const btnText = submitBtn?.querySelector('.btn-text');
         const statusEl = form.querySelector<HTMLElement>('.form-status');
 
-        if (!submitBtn || !statusEl) return;
+        if (!submitBtn || !statusEl || !btnText) return;
 
         const successMsg = form.dataset.success || 'Success!';
         const errorMsg = form.dataset.error || 'Error. Please try again.';
         const sendingMsg = form.dataset.sending || 'Sending...';
         const submitMsg = form.dataset.submit || 'Send';
 
-        // Disable button and show sending state
         submitBtn.disabled = true;
-        submitBtn.textContent = sendingMsg;
+        btnText.textContent = sendingMsg;
         statusEl.className = 'form-status';
         statusEl.textContent = '';
 
         try {
           const formData = new FormData(form);
+          const jsonData: Record<string, string> = {};
+          formData.forEach((value, key) => {
+            jsonData[key] = value.toString();
+          });
           const response = await fetch(form.action, {
             method: 'POST',
-            body: formData,
+            body: JSON.stringify(jsonData),
             headers: {
+              'Content-Type': 'application/json',
               Accept: 'application/json',
             },
           });
@@ -319,7 +451,7 @@ const FORMSPARK_FORM_ID = 'REPLACE_WITH_FORMSPARK_ID';
           statusEl.textContent = errorMsg;
         } finally {
           submitBtn.disabled = false;
-          submitBtn.textContent = submitMsg;
+          btnText.textContent = submitMsg;
         }
       });
     });
