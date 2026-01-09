@@ -5,10 +5,14 @@ argument-hint: [iterations|--dry-run|--status|--cleanup]
 
 Ralph is a test-driven, self-continuing agent that automates work on `dev_docs/active/` tasks through an iterative loop.
 
-## Quick Start
+## Quick Start (Terminal Required)
+
+**IMPORTANT: Run Ralph from terminal, not IDE (VS Code/Cursor)**
+
+The shell script uses `--dangerously-skip-permissions` which is required for Ralph's autonomous operation. When run from IDE, Claude Code uses `.claude/settings.json` which has permission restrictions that interrupt Ralph's workflow.
 
 ```bash
-# Run with default 20 iterations
+# Open a terminal and run:
 .claude/scripts/ralph/ralph.sh
 
 # Run with custom iterations
@@ -70,7 +74,9 @@ Ralph's changes                   - File edits
                   (you review)
 ```
 
-## Commands
+## Commands (Run from Terminal)
+
+All commands must be run from a **terminal** (not IDE) to ensure `--dangerously-skip-permissions` is used:
 
 ```bash
 # Run Ralph (default 20 iterations)
@@ -188,9 +194,12 @@ Only used for truly unrecoverable issues:
 - Permission errors that can't be resolved
 - After 3+ failed fix attempts on same issue
 
-**Permission errors**
-Ralph uses `--dangerously-skip-permissions` but safety hooks run.
-Check `.claude/hooks/safety_validator.py` if blocked.
+**Permission errors / Ralph stops for approval**
+If Ralph keeps stopping to ask for permission, you're likely running from IDE instead of terminal.
+- **Solution**: Run `.claude/scripts/ralph/ralph.sh` from a terminal window
+- The shell script uses `--dangerously-skip-permissions` for autonomous operation
+- IDE environments (VS Code, Cursor) use `.claude/settings.json` which has permission restrictions
+- Safety hooks (`safety_validator.py`) still run to block dangerous operations
 
 **Worktree conflicts**
 Clean up with: `.claude/scripts/ralph/ralph.sh --cleanup`

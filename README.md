@@ -94,7 +94,8 @@ The recommended workflow transforms ideas into deployed code through three autom
 # Output: dev_docs/active/0001_subscription-api/
 
 # Step 3: Let Ralph implement it autonomously
-/ralph
+# IMPORTANT: Run from terminal (not IDE) to use --dangerously-skip-permissions
+.claude/scripts/ralph/ralph.sh
 # Ralph works in isolated worktree, commits to feature branch
 
 # Step 4: Review and merge Ralph's work
@@ -159,10 +160,15 @@ Ralph is a **test-driven, self-continuing agent** that automates implementation 
 
 ### Using Ralph
 
+**Run from terminal using the shell script** (recommended):
+
 ```bash
+# IMPORTANT: Run from terminal, not IDE (VS Code/Cursor)
+# The shell script uses --dangerously-skip-permissions for autonomous operation
+# IDE environments use .claude/settings.json which interrupts Ralph's workflow
+
 # Run with default 20 iterations
-/ralph
-# or: .claude/scripts/ralph/ralph.sh
+.claude/scripts/ralph/ralph.sh
 
 # Run with custom iteration limit
 .claude/scripts/ralph/ralph.sh 10
