@@ -93,6 +93,25 @@ Create three files:
 
 ---
 
+## Ralph (Self-Continuing Agent)
+
+Ralph is a self-continuing agent for automated task execution from dev_docs.
+
+### Important: Running Ralph
+
+**Ralph must be run from terminal** with `--dangerously-skip-permissions` flag:
+
+```bash
+claude --dangerously-skip-permissions
+# Then use /ralph command
+```
+
+**Why terminal-only?** When run from IDE (VS Code, Cursor), Claude Code uses `.claude/settings.json` which may have permission restrictions that interrupt Ralph's autonomous operation. Running from terminal with the flag ensures uninterrupted execution.
+
+> See [README.md](README.md) for full Ralph documentation.
+
+---
+
 ## Repo-Specific Guidelines
 
 **Primary:** [.claude/repo_specific/CLAUDE.md](.claude/repo_specific/CLAUDE.md) - Project overview, architecture, setup
