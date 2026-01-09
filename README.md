@@ -63,14 +63,15 @@ The recommended workflow transforms ideas into deployed code through three autom
 │                         IDEA-TO-IMPLEMENTATION PIPELINE                      │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                             │
-│   1. DISCOVERY          2. DEV DOCS           3. RALPH                      │
-│   ─────────────         ─────────             ─────                         │
-│   /discovery     ──►    /dev-docs     ──►     /ralph                        │
+│   1. DISCOVERY          2. DEV DOCS           3. RALPH (terminal)           │
+│   ─────────────         ─────────             ───────────────               │
+│   /discovery     ──►    /dev-docs     ──►     ralph.sh                      │
 │                                                                             │
-│   Create PRD from       Create task           Autonomous                    │
-│   your idea through     documentation         implementation                │
-│   5 interactive         with plan,            in isolated                   │
-│   phases                context & tasks       git worktree                  │
+│   Create PRD from       Create task           Run from terminal:            │
+│   your idea through     documentation         .claude/scripts/              │
+│   5 interactive         with plan,              ralph/ralph.sh              │
+│   phases                context & tasks       (uses --dangerously-          │
+│                                                skip-permissions)            │
 │                                                                             │
 │   Output:               Output:               Output:                       │
 │   docs/discovery/       dev_docs/active/      Feature branch                │
