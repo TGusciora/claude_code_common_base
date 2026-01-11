@@ -97,8 +97,8 @@
   "hooks": {
     "PreToolUse": [
       {
-        "_description": "Safety gate: blocks destructive bash commands (rm -rf /, ~, etc.) and sensitive file modifications (.env, id_rsa, credentials)",
-        "matcher": "Bash|Write|Edit",
+        "_description": "Safety gate: blocks destructive bash commands (rm -rf /, ~, etc.) and sensitive file access (.env, id_rsa, credentials). Note: .env.example files are allowed.",
+        "matcher": "Bash|Read|Write|Edit",
         "hooks": [
           {
             "type": "command",

@@ -5,15 +5,19 @@ Safety Validator Hook for Claude Code
 
 Purpose:
     Pre-tool-use validation layer that blocks potentially destructive operations
-    before they execute. Acts as a safety gate for Bash, Write, and Edit tools.
+    before they execute. Acts as a safety gate for Bash, Read, Write, and Edit tools.
 
 Protected Against:
     - Recursive deletion of root filesystem (rm -rf /)
     - Recursive deletion of all files (rm -rf *)
     - Recursive deletion of home directory (rm -rf ~)
     - Disk wiping operations (dd if=/dev/zero)
-    - Modifications to environment files (.env)
-    - Modifications to SSH private keys (id_rsa)
+    - Access to environment files (.env, .env.local, .env.production, etc.)
+    - Access to SSH private keys (id_rsa, id_ed25519, id_ecdsa)
+    - Access to credential files (.pem, credentials)
+
+Exceptions:
+    - .env.example files are allowed (safe template files)
 
 Exit Codes:
     0 - Tool use permitted (validation passed)
@@ -52,7 +56,7 @@ if tool_name == "Bash":
 
     for pattern in dangerous_patterns:
         if re.search(pattern, command, re.IGNORECASE):
-            print(f"BLOCKED: Dangerous command pattern detected", file=sys.stderr)
+            print("BLOCKED: Dangerous command pattern detected", file=sys.stderr)
             sys.exit(2)
 
     # Additional simple checks for common dangerous patterns
@@ -71,14 +75,28 @@ if tool_name == "Bash":
             print(f"BLOCKED: {description}", file=sys.stderr)
             sys.exit(2)
 
-# Block modifications to sensitive files
-if tool_name in ["Write", "Edit"]:
+# Block access to sensitive files
+if tool_name in ["Read", "Write", "Edit"]:
     file_path = tool_input.get("file_path", "")
-    sensitive_patterns = [".env", "id_rsa", "id_ed25519", "id_ecdsa", ".pem", "credentials"]
+
+    # Allow .env.example files (they're safe to read/write)
+    if file_path.endswith(".env.example"):
+        sys.exit(0)
+
+    sensitive_patterns = [
+        ".env",
+        "id_rsa",
+        "id_ed25519",
+        "id_ecdsa",
+        ".pem",
+        "credentials",
+    ]
 
     for blocked in sensitive_patterns:
         if blocked in file_path:
-            print(f"BLOCKED: Cannot modify sensitive file: {file_path}", file=sys.stderr)
+            print(
+                f"BLOCKED: Cannot modify sensitive file: {file_path}", file=sys.stderr
+            )
             sys.exit(2)
 
 sys.exit(0)
