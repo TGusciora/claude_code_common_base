@@ -214,6 +214,23 @@ git branch -D ralph/0001_task-name
 4. **Iteration Limit**: Maximum 20 iterations prevents runaway execution
 5. **Test-Driven**: Tasks only marked complete when tests pass
 
+### Common Gotchas
+
+> **⚠️ .env files are not copied to worktrees**
+>
+> Git worktrees don't include `.env` files (they're in `.gitignore`). If your project requires environment variables, you'll need to manually set up `.env` files in the worktree directory:
+>
+> ```bash
+> # After Ralph creates the worktree, copy your .env file
+> cp .env worktrees/ralph-worktree-0001/.env
+>
+> # Or create a new one with required variables
+> cat > worktrees/ralph-worktree-0001/.env << 'EOF'
+> DATABASE_URL=...
+> API_KEY=...
+> EOF
+> ```
+
 ---
 
 ## Features
