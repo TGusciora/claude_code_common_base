@@ -102,6 +102,36 @@ create_worktree() {
     echo "$worktree_path"
 }
 
+# Copy environment and secret files to worktree (including .example for structure reference)
+copy_env_files() {
+    local worktree_path="$1"
+    local copied=0
+
+    # Copy ALL .env* files (including .example for structure reference)
+    for env_file in "$PROJECT_ROOT"/.env*; do
+        if [ -f "$env_file" ]; then
+            local filename=$(basename "$env_file")
+            cp "$env_file" "$worktree_path/$filename"
+            log_info "Copied $filename to worktree"
+            ((copied++))
+        fi
+    done
+
+    # Copy ALL .secret* files (including .example for structure reference)
+    for secret_file in "$PROJECT_ROOT"/.secret*; do
+        if [ -f "$secret_file" ]; then
+            local filename=$(basename "$secret_file")
+            cp "$secret_file" "$worktree_path/$filename"
+            log_info "Copied $filename to worktree"
+            ((copied++))
+        fi
+    done
+
+    if [ $copied -eq 0 ]; then
+        log_info "No .env or .secret files found to copy"
+    fi
+}
+
 # Build the agent prompt
 build_prompt() {
     local worktree_path="$1"
@@ -306,6 +336,9 @@ main() {
     local worktree_abs=$(cd "$(dirname "$worktree_path")" && pwd)/$(basename "$worktree_path")
 
     log_success "Worktree ready at: $worktree_path"
+
+    # Copy environment files to worktree
+    copy_env_files "$worktree_path"
 
     # Log session start
     log_progress "$worktree_path" "$task_dir" "$session_id" "session_start" "Starting Ralph session with max $max_iterations iterations"

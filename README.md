@@ -214,22 +214,13 @@ git branch -D ralph/0001_task-name
 4. **Iteration Limit**: Maximum 20 iterations prevents runaway execution
 5. **Test-Driven**: Tasks only marked complete when tests pass
 
-### Common Gotchas
+### Environment Files in Worktrees
 
-> **⚠️ .env files are not copied to worktrees**
+> **Note:** Ralph automatically copies all `.env*` and `.secret*` files to worktrees:
+> - `.example` files (e.g., `.env.example`) - Claude CAN read these for structure reference
+> - Actual secret files (e.g., `.env`, `.env.local`) - Copied but Claude CANNOT read them
 >
-> Git worktrees don't include `.env` files (they're in `.gitignore`). If your project requires environment variables, you'll need to manually set up `.env` files in the worktree directory:
->
-> ```bash
-> # After Ralph creates the worktree, copy your .env file
-> cp .env worktrees/ralph-worktree-0001/.env
->
-> # Or create a new one with required variables
-> cat > worktrees/ralph-worktree-0001/.env << 'EOF'
-> DATABASE_URL=...
-> API_KEY=...
-> EOF
-> ```
+> This allows your environment to be ready while keeping secrets protected by the safety hook.
 
 ---
 

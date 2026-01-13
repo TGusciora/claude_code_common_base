@@ -13,11 +13,14 @@ Protected Against:
     - Recursive deletion of home directory (rm -rf ~)
     - Disk wiping operations (dd if=/dev/zero)
     - Access to environment files (.env, .env.local, .env.production, etc.)
+    - Access to secret files (.secret, .secret.local, etc.)
     - Access to SSH private keys (id_rsa, id_ed25519, id_ecdsa)
     - Access to credential files (.pem, credentials)
+    - Bash access to sensitive files (cat/head/tail/cp on .env, .secret, keys)
 
 Exceptions:
-    - .env.example files are allowed (safe template files)
+    - Files ending with .example are allowed (safe template files)
+    - e.g., .env.example, .secret.example can be read for structure reference
 
 Exit Codes:
     0 - Tool use permitted (validation passed)
@@ -75,16 +78,40 @@ if tool_name == "Bash":
             print(f"BLOCKED: {description}", file=sys.stderr)
             sys.exit(2)
 
+    # Block Bash access to sensitive files (but allow .example files)
+    # First check if it's an .example file - those are safe
+    if not re.search(r"\.example\b", command, re.IGNORECASE):
+        sensitive_file_patterns = [
+            r"\bcat\s+.*\.env\b",
+            r"\bhead\s+.*\.env\b",
+            r"\btail\s+.*\.env\b",
+            r"\bcp\s+.*\.env\b",
+            r"\bcat\s+.*\.secret",
+            r"\bhead\s+.*\.secret",
+            r"\btail\s+.*\.secret",
+            r"\bcp\s+.*\.secret",
+            r"\bcat\s+.*id_rsa",
+            r"\bcat\s+.*id_ed25519",
+            r"\bcat\s+.*\.pem",
+            r"\bcat\s+.*credentials",
+        ]
+
+        for pattern in sensitive_file_patterns:
+            if re.search(pattern, command, re.IGNORECASE):
+                print("BLOCKED: Cannot access sensitive file via Bash", file=sys.stderr)
+                sys.exit(2)
+
 # Block access to sensitive files
 if tool_name in ["Read", "Write", "Edit"]:
     file_path = tool_input.get("file_path", "")
 
-    # Allow .env.example files (they're safe to read/write)
-    if file_path.endswith(".env.example"):
+    # Allow .example files (they're safe templates without secrets)
+    if file_path.endswith(".example"):
         sys.exit(0)
 
     sensitive_patterns = [
         ".env",
+        ".secret",
         "id_rsa",
         "id_ed25519",
         "id_ecdsa",
