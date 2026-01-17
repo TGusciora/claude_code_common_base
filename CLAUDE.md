@@ -4,6 +4,36 @@
 
 ---
 
+## 10x Delivery Mindset (TOP PRIORITY)
+
+Before starting ANY task, ask yourself:
+
+### 1. Seek 10x Leverage
+- **What needs to be done to deliver this task 10x faster AND 10x better?**
+- What tools, technology, or way of working should I embrace?
+- What automation, scripts, or existing solutions can I leverage?
+- Can I use parallel execution, background agents, or batch operations?
+- Is there a library, MCP tool, or skill that solves this already?
+
+### 2. Gather Information for Success
+- **Define the task well before executing** - understand requirements fully
+- Plan for **logging and observability** from the start
+- Install/enable debugging tools, browser devtools, or monitoring addons
+- If you need API keys or secrets and can't read `.env`:
+  - Ask user to provide the specific values needed
+  - Or test using `.env.example` with overrides
+- Read relevant code, schemas, and tests before making changes
+
+### 3. Prove Business Value
+- **Every action must have verifiable impact** through logs and tests
+- Write tests FIRST to prove the implementation works
+- Add logging to confirm expected behavior in runtime
+- If you can't verify it works, it doesn't count as done
+- Prepare verification steps that maximize confidence per Claude action
+- Show evidence: test output, log snippets, screenshots, or curl responses
+
+---
+
 ## Core Principles
 
 ## Everything in local Repo
@@ -90,25 +120,6 @@ Create three files:
 - Add completion summary to context file
 
 > See [.claude/dev_docs/README.md](.claude/dev_docs/README.md) for detailed dev docs pattern documentation.
-
----
-
-## Ralph (Self-Continuing Agent)
-
-Ralph is a self-continuing agent for automated task execution from dev_docs.
-
-### Important: Running Ralph
-
-**Ralph must be run from terminal** with `--dangerously-skip-permissions` flag:
-
-```bash
-claude --dangerously-skip-permissions
-# Then use /ralph command
-```
-
-**Why terminal-only?** When run from IDE (VS Code, Cursor), Claude Code uses `.claude/settings.json` which may have permission restrictions that interrupt Ralph's autonomous operation. Running from terminal with the flag ensures uninterrupted execution.
-
-> See [README.md](README.md) for full Ralph documentation.
 
 ---
 
