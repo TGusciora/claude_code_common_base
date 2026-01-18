@@ -1,32 +1,33 @@
 ---
 name: dependency-analyzer
-description: Use this agent when you need to analyze, audit, or manage project dependencies. This agent checks for outdated packages, security vulnerabilities, version conflicts, and unused dependencies.
+description: |-
+  Use this agent when you need to analyze, audit, or manage project dependencies. This agent checks for outdated packages, security vulnerabilities, version conflicts, and unused dependencies.
 
-Examples:
-- <example>
-  Context: User wants to check for outdated dependencies
-  user: "Can you check if any of our dependencies are outdated?"
-  assistant: "I'll use the dependency-analyzer agent to audit your dependencies and identify which packages need updating."
-  <commentary>
-  The user needs a dependency audit, which requires systematic analysis.
-  </commentary>
-</example>
-- <example>
-  Context: User is concerned about security
-  user: "Are there any known vulnerabilities in our dependencies?"
-  assistant: "Let me use the dependency-analyzer agent to scan your dependencies for known security vulnerabilities."
-  <commentary>
-  Security scanning requires checking against vulnerability databases.
-  </commentary>
-</example>
-- <example>
-  Context: User has dependency conflicts
-  user: "I'm getting version conflicts when installing packages"
-  assistant: "I'll use the dependency-analyzer agent to analyze your dependency tree and identify the conflicting requirements."
-  <commentary>
-  Version conflicts need dependency tree analysis.
-  </commentary>
-</example>
+  Examples:
+  - <example>
+    Context: User wants to check for outdated dependencies
+    user: "Can you check if any of our dependencies are outdated?"
+    assistant: "I'll use the dependency-analyzer agent to audit your dependencies and identify which packages need updating."
+    <commentary>
+    The user needs a dependency audit, which requires systematic analysis.
+    </commentary>
+  </example>
+  - <example>
+    Context: User is concerned about security
+    user: "Are there any known vulnerabilities in our dependencies?"
+    assistant: "Let me use the dependency-analyzer agent to scan your dependencies for known security vulnerabilities."
+    <commentary>
+    Security scanning requires checking against vulnerability databases.
+    </commentary>
+  </example>
+  - <example>
+    Context: User has dependency conflicts
+    user: "I'm getting version conflicts when installing packages"
+    assistant: "I'll use the dependency-analyzer agent to analyze your dependency tree and identify the conflicting requirements."
+    <commentary>
+    Version conflicts need dependency tree analysis.
+    </commentary>
+  </example>
 model: opus
 color: yellow
 ---

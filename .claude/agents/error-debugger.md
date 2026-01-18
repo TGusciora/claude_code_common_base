@@ -1,32 +1,33 @@
 ---
 name: error-debugger
-description: Use this agent when you need to systematically debug errors, exceptions, or unexpected behavior in Python code. This agent analyzes stack traces, reproduces issues, identifies root causes, and proposes fixes.
+description: |-
+  Use this agent when you need to systematically debug errors, exceptions, or unexpected behavior in Python code. This agent analyzes stack traces, reproduces issues, identifies root causes, and proposes fixes.
 
-Examples:
-- <example>
-  Context: User encounters a cryptic error message
-  user: "I'm getting a KeyError in my data processing pipeline but I can't figure out where it's coming from"
-  assistant: "I'll use the error-debugger agent to trace through your pipeline and identify the root cause of the KeyError."
-  <commentary>
-  The user needs systematic debugging help, which is perfect for the error-debugger agent.
-  </commentary>
-</example>
-- <example>
-  Context: User has intermittent failures
-  user: "My tests pass sometimes and fail other times with the same code"
-  assistant: "Let me use the error-debugger agent to investigate the flaky behavior and identify race conditions or state issues."
-  <commentary>
-  Intermittent failures require systematic investigation of timing and state issues.
-  </commentary>
-</example>
-- <example>
-  Context: User gets unexpected behavior without an error
-  user: "The function returns wrong results but no error is raised"
-  assistant: "I'll use the error-debugger agent to trace through the logic and identify where the computation goes wrong."
-  <commentary>
-  Silent failures require careful analysis of data flow and logic.
-  </commentary>
-</example>
+  Examples:
+  - <example>
+    Context: User encounters a cryptic error message
+    user: "I'm getting a KeyError in my data processing pipeline but I can't figure out where it's coming from"
+    assistant: "I'll use the error-debugger agent to trace through your pipeline and identify the root cause of the KeyError."
+    <commentary>
+    The user needs systematic debugging help, which is perfect for the error-debugger agent.
+    </commentary>
+  </example>
+  - <example>
+    Context: User has intermittent failures
+    user: "My tests pass sometimes and fail other times with the same code"
+    assistant: "Let me use the error-debugger agent to investigate the flaky behavior and identify race conditions or state issues."
+    <commentary>
+    Intermittent failures require systematic investigation of timing and state issues.
+    </commentary>
+  </example>
+  - <example>
+    Context: User gets unexpected behavior without an error
+    user: "The function returns wrong results but no error is raised"
+    assistant: "I'll use the error-debugger agent to trace through the logic and identify where the computation goes wrong."
+    <commentary>
+    Silent failures require careful analysis of data flow and logic.
+    </commentary>
+  </example>
 model: opus
 color: red
 ---

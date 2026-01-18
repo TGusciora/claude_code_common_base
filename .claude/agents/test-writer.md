@@ -1,32 +1,33 @@
 ---
 name: test-writer
-description: Use this agent when you need to write tests following TDD principles. This agent creates atomic, isolated tests with proper naming conventions, ensures comprehensive coverage, and follows the project's testing guidelines from CLAUDE.md.
+description: |-
+  Use this agent when you need to write tests following TDD principles. This agent creates atomic, isolated tests with proper naming conventions, ensures comprehensive coverage, and follows the project's testing guidelines from CLAUDE.md.
 
-Examples:
-- <example>
-  Context: User has implemented a new function and needs tests
-  user: "I've written a new calculate_discount function, can you write tests for it?"
-  assistant: "I'll use the test-writer agent to create comprehensive tests for your calculate_discount function following TDD principles."
-  <commentary>
-  Since the user needs tests written, use the test-writer agent to create proper atomic tests.
-  </commentary>
-</example>
-- <example>
-  Context: User wants to add test coverage to an existing module
-  user: "The auth module has no tests, can you add them?"
-  assistant: "Let me use the test-writer agent to analyze the auth module and create comprehensive test coverage."
-  <commentary>
-  The user needs tests for an existing module, which requires analysis and systematic test creation.
-  </commentary>
-</example>
-- <example>
-  Context: User is starting a new feature and wants TDD approach
-  user: "I want to implement a user validation feature using TDD"
-  assistant: "I'll use the test-writer agent to write the tests first, then we can implement the feature to make them pass."
-  <commentary>
-  TDD approach requested - write tests before implementation.
-  </commentary>
-</example>
+  Examples:
+  - <example>
+    Context: User has implemented a new function and needs tests
+    user: "I've written a new calculate_discount function, can you write tests for it?"
+    assistant: "I'll use the test-writer agent to create comprehensive tests for your calculate_discount function following TDD principles."
+    <commentary>
+    Since the user needs tests written, use the test-writer agent to create proper atomic tests.
+    </commentary>
+  </example>
+  - <example>
+    Context: User wants to add test coverage to an existing module
+    user: "The auth module has no tests, can you add them?"
+    assistant: "Let me use the test-writer agent to analyze the auth module and create comprehensive test coverage."
+    <commentary>
+    The user needs tests for an existing module, which requires analysis and systematic test creation.
+    </commentary>
+  </example>
+  - <example>
+    Context: User is starting a new feature and wants TDD approach
+    user: "I want to implement a user validation feature using TDD"
+    assistant: "I'll use the test-writer agent to write the tests first, then we can implement the feature to make them pass."
+    <commentary>
+    TDD approach requested - write tests before implementation.
+    </commentary>
+  </example>
 model: opus
 color: green
 ---

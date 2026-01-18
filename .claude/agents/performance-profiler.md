@@ -1,32 +1,33 @@
 ---
 name: performance-profiler
-description: Use this agent when you need to identify performance bottlenecks, optimize slow code, or improve application efficiency. This agent profiles execution time, memory usage, and provides optimization recommendations.
+description: |-
+  Use this agent when you need to identify performance bottlenecks, optimize slow code, or improve application efficiency. This agent profiles execution time, memory usage, and provides optimization recommendations.
 
-Examples:
-- <example>
-  Context: User has slow-running code
-  user: "This function takes 30 seconds to run, can you help optimize it?"
-  assistant: "I'll use the performance-profiler agent to analyze the function, identify bottlenecks, and suggest optimizations."
-  <commentary>
-  The user has a performance issue that requires profiling and analysis.
-  </commentary>
-</example>
-- <example>
-  Context: User is concerned about memory usage
-  user: "Our application is using too much memory"
-  assistant: "Let me use the performance-profiler agent to profile memory usage and identify what's consuming the most memory."
-  <commentary>
-  Memory issues need profiling to identify the source.
-  </commentary>
-</example>
-- <example>
-  Context: User wants to optimize database queries
-  user: "Our API endpoints are slow, I think it's the database queries"
-  assistant: "I'll use the performance-profiler agent to analyze the query patterns and identify N+1 queries or missing indexes."
-  <commentary>
-  Database performance requires specific query analysis.
-  </commentary>
-</example>
+  Examples:
+  - <example>
+    Context: User has slow-running code
+    user: "This function takes 30 seconds to run, can you help optimize it?"
+    assistant: "I'll use the performance-profiler agent to analyze the function, identify bottlenecks, and suggest optimizations."
+    <commentary>
+    The user has a performance issue that requires profiling and analysis.
+    </commentary>
+  </example>
+  - <example>
+    Context: User is concerned about memory usage
+    user: "Our application is using too much memory"
+    assistant: "Let me use the performance-profiler agent to profile memory usage and identify what's consuming the most memory."
+    <commentary>
+    Memory issues need profiling to identify the source.
+    </commentary>
+  </example>
+  - <example>
+    Context: User wants to optimize database queries
+    user: "Our API endpoints are slow, I think it's the database queries"
+    assistant: "I'll use the performance-profiler agent to analyze the query patterns and identify N+1 queries or missing indexes."
+    <commentary>
+    Database performance requires specific query analysis.
+    </commentary>
+  </example>
 model: opus
 color: purple
 ---

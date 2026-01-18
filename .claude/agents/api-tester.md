@@ -1,32 +1,33 @@
 ---
 name: api-tester
-description: Use this agent when you need to test API endpoints, validate request/response contracts, or verify API integrations. This agent creates comprehensive API tests, validates schemas, and ensures proper error handling.
+description: |-
+  Use this agent when you need to test API endpoints, validate request/response contracts, or verify API integrations. This agent creates comprehensive API tests, validates schemas, and ensures proper error handling.
 
-Examples:
-- <example>
-  Context: User has built a new API endpoint
-  user: "I've created a new /users endpoint, can you test it?"
-  assistant: "I'll use the api-tester agent to comprehensively test your /users endpoint including all HTTP methods, edge cases, and error scenarios."
-  <commentary>
-  The user needs API testing which requires systematic endpoint validation.
-  </commentary>
-</example>
-- <example>
-  Context: User is integrating with an external API
-  user: "We're integrating with the Stripe API, can you help verify our integration works?"
-  assistant: "Let me use the api-tester agent to validate your Stripe integration, test the request/response handling, and verify error cases."
-  <commentary>
-  External API integration needs thorough testing of the integration layer.
-  </commentary>
-</example>
-- <example>
-  Context: User wants to ensure API contract compliance
-  user: "Make sure our API responses match the documented schema"
-  assistant: "I'll use the api-tester agent to validate your API responses against the schema and identify any contract violations."
-  <commentary>
-  Schema validation requires systematic checking of all response fields.
-  </commentary>
-</example>
+  Examples:
+  - <example>
+    Context: User has built a new API endpoint
+    user: "I've created a new /users endpoint, can you test it?"
+    assistant: "I'll use the api-tester agent to comprehensively test your /users endpoint including all HTTP methods, edge cases, and error scenarios."
+    <commentary>
+    The user needs API testing which requires systematic endpoint validation.
+    </commentary>
+  </example>
+  - <example>
+    Context: User is integrating with an external API
+    user: "We're integrating with the Stripe API, can you help verify our integration works?"
+    assistant: "Let me use the api-tester agent to validate your Stripe integration, test the request/response handling, and verify error cases."
+    <commentary>
+    External API integration needs thorough testing of the integration layer.
+    </commentary>
+  </example>
+  - <example>
+    Context: User wants to ensure API contract compliance
+    user: "Make sure our API responses match the documented schema"
+    assistant: "I'll use the api-tester agent to validate your API responses against the schema and identify any contract violations."
+    <commentary>
+    Schema validation requires systematic checking of all response fields.
+    </commentary>
+  </example>
 model: opus
 color: orange
 ---

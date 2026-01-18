@@ -1,6 +1,33 @@
 ---
 name: refactor-planner
-description: Use this agent when you need to analyze code structure and create comprehensive refactoring plans. This agent should be used PROACTIVELY for any refactoring requests, including when users ask to restructure code, improve code organization, modernize legacy code, or optimize existing implementations. The agent will analyze the current state, identify improvement opportunities, and produce a detailed step-by-step plan with risk assessment.\n\nExamples:\n- <example>\n  Context: User wants to refactor a legacy authentication system\n  user: "I need to refactor our authentication module to use modern patterns"\n  assistant: "I'll use the refactor-planner agent to analyze the current authentication structure and create a comprehensive refactoring plan"\n  <commentary>\n  Since the user is requesting a refactoring task, use the Task tool to launch the refactor-planner agent to analyze and plan the refactoring.\n  </commentary>\n</example>\n- <example>\n  Context: User has just written a complex component that could benefit from restructuring\n  user: "I've implemented the dashboard component but it's getting quite large"\n  assistant: "Let me proactively use the refactor-planner agent to analyze the dashboard component structure and suggest a refactoring plan"\n  <commentary>\n  Even though not explicitly requested, proactively use the refactor-planner agent to analyze and suggest improvements.\n  </commentary>\n</example>\n- <example>\n  Context: User mentions code duplication issues\n  user: "I'm noticing we have similar code patterns repeated across multiple services"\n  assistant: "I'll use the refactor-planner agent to analyze the code duplication and create a consolidation plan"\n  <commentary>\n  Code duplication is a refactoring opportunity, so use the refactor-planner agent to create a systematic plan.\n  </commentary>\n</example>
+description: |-
+  Use this agent when you need to analyze code structure and create comprehensive refactoring plans. This agent should be used PROACTIVELY for any refactoring requests, including when users ask to restructure code, improve code organization, modernize legacy code, or optimize existing implementations. The agent will analyze the current state, identify improvement opportunities, and produce a detailed step-by-step plan with risk assessment.
+
+  Examples:
+  - <example>
+    Context: User wants to refactor a legacy authentication system
+    user: "I need to refactor our authentication module to use modern patterns"
+    assistant: "I'll use the refactor-planner agent to analyze the current authentication structure and create a comprehensive refactoring plan"
+    <commentary>
+    Since the user is requesting a refactoring task, use the Task tool to launch the refactor-planner agent to analyze and plan the refactoring.
+    </commentary>
+  </example>
+  - <example>
+    Context: User has just written a complex component that could benefit from restructuring
+    user: "I've implemented the dashboard component but it's getting quite large"
+    assistant: "Let me proactively use the refactor-planner agent to analyze the dashboard component structure and suggest a refactoring plan"
+    <commentary>
+    Even though not explicitly requested, proactively use the refactor-planner agent to analyze and suggest improvements.
+    </commentary>
+  </example>
+  - <example>
+    Context: User mentions code duplication issues
+    user: "I'm noticing we have similar code patterns repeated across multiple services"
+    assistant: "I'll use the refactor-planner agent to analyze the code duplication and create a consolidation plan"
+    <commentary>
+    Code duplication is a refactoring opportunity, so use the refactor-planner agent to create a systematic plan.
+    </commentary>
+  </example>
 model: opus
 color: purple
 ---
