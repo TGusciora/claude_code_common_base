@@ -1,4 +1,5 @@
 ---
+name: continue-dev
 description: Continue implementing tasks from dev_docs/active with extended thinking
 argument-hint: [optional task number to override auto-selection, e.g., "0002"]
 ---

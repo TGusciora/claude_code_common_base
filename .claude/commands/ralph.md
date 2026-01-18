@@ -1,4 +1,5 @@
 ---
+name: ralph
 description: Start the Ralph self-continuing agent for dev_docs tasks
 argument-hint: [iterations|--dry-run|--status|--cleanup]
 ---

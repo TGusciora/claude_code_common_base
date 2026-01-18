@@ -1,4 +1,5 @@
 ---
+name: discovery
 description: Start or resume the Discovery-to-PRD pipeline
 argument-hint: [--description "<text>"] [--resume <phase>] [--project <name>]
 ---

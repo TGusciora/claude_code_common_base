@@ -1,4 +1,5 @@
 ---
+name: dev-docs-update
 description: Update dev documentation before context compaction
 argument-hint: Optional - specific context or tasks to focus on (leave empty for comprehensive update)
 ---

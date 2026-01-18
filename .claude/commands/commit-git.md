@@ -1,4 +1,5 @@
 ---
+name: commit-git
 description: Commit staged changes with conventional commit message and push to remote
 argument-hint: Optional commit message override (leave empty for auto-generated suggestion)
 ---
