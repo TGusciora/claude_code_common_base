@@ -32,6 +32,8 @@ This repository provides a **portable Claude Code configuration** that you can d
 | **Original Discussion** | [Claude Code is a Beast - Tips from 6 Months of Use](https://www.reddit.com/r/ClaudeAI/comments/1oivjvm/claude_code_is_a_beast_tips_from_6_months_of/) |
 | **Hooks Guide** | [The Production-Ready Claude Code Hooks Guide](https://alirezarezvani.medium.com/the-production-ready-claude-code-hooks-guide-7-hooks-that-actually-matter-823587f9fc61) by Alireza Rezvani |
 | **Frontend Skills** | [Anthropic Skills Repository](https://github.com/anthropics/skills) - `frontend-design`, `theme-factory`, `webapp-testing`, `web-artifacts-builder` |
+| **React Best Practices** | [Vercel Agent Skills](https://github.com/vercel-labs/agent-skills/tree/main) - Performance optimization rules for React/Next.js |
+| **Vue Best Practices** | Adapted from React skill for Vue 3/Nuxt 3 ecosystem |
 
 ---
 
@@ -239,14 +241,16 @@ Domain-specific knowledge modules that Claude loads when relevant:
 | `k8s-dev` | Kubernetes cloud-agnostic patterns |
 | `skill-developer` | Meta-skill for creating skills |
 | `discovery` | Idea-to-PRD pipeline with 5 phases |
+| `react-best-practices`** | 40+ React/Next.js performance rules |
+| `vue-best-practices` | 40+ Vue 3/Nuxt 3 performance rules |
 | `frontend-design`* | Production-grade UI with distinctive design |
 | `theme-factory`* | Curated themes for artifacts |
 | `webapp-testing`* | Playwright browser testing |
 | `web-artifacts-builder`* | React/Tailwind HTML artifacts |
 
-*Skills from [Anthropic Skills Repository](https://github.com/anthropics/skills)
+*From [Anthropic Skills](https://github.com/anthropics/skills) | **From [Vercel Agent Skills](https://github.com/vercel-labs/agent-skills)
 
-**Activation:** `/python-dev`, `/k8s-dev`, `/skill-dev`, `/discovery`, `/frontend-design`
+**Activation:** `/python-dev`, `/k8s-dev`, `/skill-dev`, `/discovery`, `/react-best-practices`, `/vue-best-practices`
 
 </td>
 <td width="50%" valign="top">
@@ -350,6 +354,8 @@ dev_docs/
 │   ├── python-dev/
 │   ├── k8s-dev/
 │   ├── skill-developer/
+│   ├── react-best-practices/   # From Vercel (40+ perf rules)
+│   ├── vue-best-practices/     # Vue/Nuxt adaptation (40+ rules)
 │   ├── frontend-design/    # From Anthropic
 │   ├── theme-factory/      # From Anthropic
 │   ├── webapp-testing/     # From Anthropic
