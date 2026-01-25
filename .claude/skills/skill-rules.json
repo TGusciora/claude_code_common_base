@@ -292,6 +292,106 @@
         ],
         "pathExclusions": []
       }
+    },
+    "react-best-practices": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "high",
+      "description": "Comprehensive React and Next.js performance optimization guide with 40+ rules",
+      "promptTriggers": {
+        "keywords": [
+          "react",
+          "next.js",
+          "nextjs",
+          "jsx",
+          "tsx component",
+          "use state",
+          "use effect",
+          "react hook",
+          "server component",
+          "client component",
+          "react performance",
+          "bundle size",
+          "code splitting",
+          "lazy loading",
+          "suspense",
+          "useMemo",
+          "useCallback",
+          "react.memo"
+        ],
+        "intentPatterns": [
+          "(optimize|improve|refactor).*?react",
+          "react.*?performance",
+          "(build|create).*?(react|next)",
+          "reduce.*?(bundle|rerenders)",
+          "(fix|debug).*?react",
+          "react.*?(best practices|optimization)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/*.jsx",
+          "**/*.tsx",
+          "**/next.config.*",
+          "**/app/**/*.tsx",
+          "**/pages/**/*.tsx",
+          "**/components/**/*.tsx"
+        ],
+        "pathExclusions": [
+          "**/node_modules/**",
+          "**/.next/**",
+          "**/dist/**"
+        ]
+      }
+    },
+    "vue-best-practices": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "high",
+      "description": "Comprehensive Vue 3 and Nuxt 3 performance optimization guide with 40+ rules",
+      "promptTriggers": {
+        "keywords": [
+          "vue",
+          "nuxt",
+          "composition api",
+          "script setup",
+          "defineAsyncComponent",
+          "useFetch",
+          "useAsyncData",
+          "v-memo",
+          "shallowRef",
+          "composable",
+          "vue performance",
+          "vue optimization",
+          "nitro",
+          "KeepAlive",
+          "Teleport",
+          "provide inject"
+        ],
+        "intentPatterns": [
+          "(optimize|improve|refactor).*?(vue|nuxt)",
+          "(vue|nuxt).*?performance",
+          "(build|create).*?(vue|nuxt)",
+          "reduce.*?(bundle|rerenders).*?(vue|nuxt)",
+          "(fix|debug).*?(vue|nuxt)",
+          "(vue|nuxt).*?(best practices|optimization)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/*.vue",
+          "**/nuxt.config.*",
+          "**/composables/**/*.ts",
+          "**/pages/**/*.vue",
+          "**/components/**/*.vue"
+        ],
+        "pathExclusions": [
+          "**/node_modules/**",
+          "**/.nuxt/**",
+          "**/.output/**",
+          "**/dist/**"
+        ]
+      }
     }
   },
   "notes": {
