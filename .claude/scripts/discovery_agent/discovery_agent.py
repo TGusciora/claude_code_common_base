@@ -82,6 +82,31 @@ PHASES: tuple[Phase, ...] = (
 
 PHASE_BY_NAME: dict[str, Phase] = {p.name: p for p in PHASES}
 
+
+def sanitize_project_name(name: str) -> str:
+    """Sanitize project name to prevent path traversal and ensure valid filename.
+
+    Args:
+        name: Raw project name input.
+
+    Returns:
+        Sanitized project name safe for use in file paths.
+    """
+    # Remove path separators and parent directory refs
+    name = name.replace("/", "-").replace("\\", "-").replace("..", "")
+    # Only keep alphanumeric and hyphens
+    name = "".join(c if c.isalnum() or c == "-" else "-" for c in name)
+    # Remove multiple consecutive hyphens
+    while "--" in name:
+        name = name.replace("--", "-")
+    # Trim leading/trailing hyphens and limit length
+    name = name.strip("-")[:50]
+    # Ensure we have a valid name
+    if not name or not any(c.isalnum() for c in name):
+        return "discovery-project"
+    return name
+
+
 # Tools to allow without prompting during discovery phases
 ALLOWED_TOOLS: tuple[str, ...] = (
     "Read(*)",
@@ -339,8 +364,7 @@ def _derive_project_name_fallback(description: str) -> str:
     }
     key_words = [w for w in words if w.isalnum() and w not in skip_words][:4]
     project_name = "-".join(key_words)
-    project_name = "".join(c if c.isalnum() or c == "-" else "" for c in project_name)
-    return project_name.strip("-")[:50] or "discovery-project"
+    return sanitize_project_name(project_name)
 
 
 def derive_project_name(description: str) -> str:
@@ -367,13 +391,8 @@ Output only the project name:"""
         )
         if result.returncode == 0 and result.stdout.strip():
             name = result.stdout.strip().lower()
-            # Clean up: only alphanumeric and hyphens
-            name = "".join(c if c.isalnum() or c == "-" else "-" for c in name)
-            # Remove multiple consecutive hyphens
-            while "--" in name:
-                name = name.replace("--", "-")
-            name = name.strip("-")[:50]
-            if name:
+            name = sanitize_project_name(name)
+            if name and name != "discovery-project":
                 return name
     except (subprocess.TimeoutExpired, subprocess.SubprocessError):
         pass
