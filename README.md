@@ -388,6 +388,8 @@ dev_docs/
 │
 ├── audit_logs/             # Action audit trail
 │
+├── plans/                  # Plan mode artifacts (plansDirectory)
+│
 └── settings.json           # Main configuration
 ```
 
@@ -469,6 +471,7 @@ Edit `.claude/settings.json`:
 
 ```json
 {
+  "plansDirectory": ".claude/plans/",
   "permissions": {
     "allow": ["..."],
     "ask": ["..."],
@@ -476,6 +479,8 @@ Edit `.claude/settings.json`:
   }
 }
 ```
+
+> **Note:** The `plansDirectory` setting configures where Claude Code saves plan files when using plan mode. Plans are stored in `.claude/plans/` for better organization.
 
 ---
 
