@@ -63,15 +63,28 @@ def parse_event_data() -> dict:
 
 
 def rotate_old_logs(log_dir: Path, retention_days: int = 90) -> None:
-    """Remove log files older than retention period."""
-    cutoff_time = time.time() - (retention_days * 24 * 60 * 60)
+    """Remove log files older than retention period.
 
-    for old_log in log_dir.glob("*_audit.jsonl"):
-        try:
-            if old_log.stat().st_mtime < cutoff_time:
-                old_log.unlink()
-        except OSError:
-            pass  # Ignore errors during cleanup
+    Uses file locking to prevent race conditions when multiple hook
+    processes run simultaneously (PreToolUse, PostToolUse, etc.).
+    """
+    import fcntl
+
+    lock_file = log_dir / ".rotation.lock"
+    try:
+        with open(lock_file, "w") as lock:
+            # Try to acquire exclusive lock without blocking
+            fcntl.flock(lock.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+
+            cutoff_time = time.time() - (retention_days * 24 * 60 * 60)
+            for old_log in log_dir.glob("*_audit.jsonl"):
+                try:
+                    if old_log.stat().st_mtime < cutoff_time:
+                        old_log.unlink()
+                except OSError:
+                    pass  # Ignore errors during cleanup
+    except BlockingIOError:
+        pass  # Another process is rotating, skip
 
 
 def write_audit_entry(log_dir: Path, entry: dict) -> None:
@@ -91,7 +104,7 @@ def main() -> None:
         "timestamp": get_iso_timestamp(),
         "event_type": os.environ.get("CLAUDE_HOOK_EVENT", "unknown"),
         "session_id": os.environ.get("CLAUDE_SESSION_ID", "unknown"),
-        "event_data": parse_event_data()
+        "event_data": parse_event_data(),
     }
 
     # Write to log file
