@@ -255,7 +255,7 @@ Domain-specific knowledge modules that Claude loads when relevant:
 </td>
 <td width="50%" valign="top">
 
-### 11 Specialized Agents
+### 12 Specialized Agents
 Autonomous sub-agents for complex tasks:
 
 | Agent | Purpose |
@@ -271,6 +271,7 @@ Autonomous sub-agents for complex tasks:
 | `plan-reviewer` | Review plans |
 | `code-refactor-master` | Execute refactoring |
 | `web-research-specialist` | Research online |
+| `integration-verifier` | Verify feature integration |
 
 </td>
 </tr>
@@ -344,6 +345,7 @@ dev_docs/
 │   ├── dependency-analyzer.md
 │   ├── documentation-architect.md
 │   ├── error-debugger.md
+│   ├── integration-verifier.md
 │   ├── performance-profiler.md
 │   ├── plan-reviewer.md
 │   ├── refactor-planner.md
@@ -481,6 +483,18 @@ Edit `.claude/settings.json`:
 ```
 
 > **Note:** The `plansDirectory` setting configures where Claude Code saves plan files when using plan mode. Plans are stored in `.claude/plans/` for better organization.
+
+---
+
+## Known Limitations
+
+> **⚠️ Ralph Not Sandboxed**: Ralph currently runs with `--dangerously-skip-permissions` flag for autonomous operation. This means:
+> - Ralph bypasses normal permission prompts (by design, for automation)
+> - Safety hooks (`safety_validator.py`) still block dangerous operations
+> - Worktree isolation protects your main branch
+> - However, Ralph is **NOT** running in a true sandbox environment
+>
+> **Mitigation**: Always review Ralph's changes before merging. Consider running Ralph in a VM or container for sensitive projects.
 
 ---
 
