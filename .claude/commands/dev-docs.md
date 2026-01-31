@@ -43,6 +43,17 @@ You are an elite strategic planning specialist. Create a comprehensive, actionab
      - `NNNN_[task-name]-tasks.md` - Checklist format for tracking progress
    - Include "Last Updated: YYYY-MM-DD" in each file
 
+7. **Extract integration points** (if linked to PRD or existing feature):
+   - Backend endpoints → add to Prerequisites in context.md
+   - CSS variables used → add to Integration Checklist
+   - Navigation entry points → add to Prerequisites
+
+8. **Pre-populate Integration Checklist** in tasks.md:
+   - Include specific URLs to verify (e.g., `http://localhost:3000/path/to/feature`)
+   - Include specific CSS variable names if known
+   - Include specific file paths for routers/components
+   - See `.claude/dev_docs/README.md` for checklist template
+
 ## Naming Convention
 
 ```
@@ -70,3 +81,17 @@ Examples:
 - Use `.claude/dev_docs/README.md` for task management guidelines
 
 **Note**: This command is ideal to use AFTER exiting plan mode when you have a clear vision of what needs to be done. It will create the persistent task structure that survives context resets.
+
+---
+
+## Context Management Rule
+
+**At 70-80% context usage**, proactively manage the session:
+
+1. **Save progress**: Run `/dev-docs-update` to capture all work done
+2. **Clear context**: Recommend user run `/clear` to reset
+3. **Resume seamlessly**: Run `/continue-dev` to pick up where you left off
+
+This prevents lossy auto-compaction and ensures no work is lost. Dev docs files survive context resets perfectly.
+
+**Monitor context**: Run `/context` periodically during long sessions to check usage percentage.

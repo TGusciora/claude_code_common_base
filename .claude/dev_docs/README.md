@@ -173,3 +173,31 @@ mv dev_docs/active/NNNN_task-name dev_docs/archive/
 ## Phase 2: [Name]
 - [ ] Task with acceptance criteria
 ```
+
+---
+
+## Integration Verification Checklist
+
+**MANDATORY**: Include this section in every `tasks.md` and complete BEFORE marking task done.
+
+```markdown
+## Integration Verification Checklist
+
+### Backend Integration (if applicable)
+- [ ] Router/route registered in main application entry point
+- [ ] Database migration applied (if applicable)
+- [ ] Endpoint responds: `curl http://localhost:PORT/api/...`
+
+### Frontend Integration (if applicable)
+- [ ] Page accessible in browser (URL: ________)
+- [ ] Navigation link from parent page exists
+- [ ] CSS variables defined in theme/variables file
+- [ ] No console errors in DevTools
+
+### Runtime Verification
+- [ ] Feature works end-to-end in running app
+- [ ] Screenshot captured (store in this dev_docs folder)
+- [ ] Tested in local dev environment
+```
+
+**Why this matters:** Unit tests passing does not prove integration works. A task can have all tests passing but still miss router registration, undefined CSS variables, or orphaned pages that only appear at runtime.

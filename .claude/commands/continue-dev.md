@@ -29,6 +29,16 @@ Read ALL three files in the task folder:
 
 **CRITICAL:** Take time to thoroughly understand the full context before proceeding.
 
+### Step 2.5: Pre-Implementation Check
+
+Before implementing, verify prerequisites exist:
+
+1. **Backend tasks**: Check router/route registered in main application entry point
+2. **Frontend CSS tasks**: Verify CSS variables exist in theme/variables file
+3. **New pages**: Identify parent page needing navigation link
+
+If prerequisites missing, create them FIRST or document as blocker in context.md.
+
 ### Step 3: Apply Extended Thinking
 Before implementing, engage in deep analysis:
 
@@ -56,6 +66,20 @@ Work through incomplete tasks in order:
 
 ### Step 6: Update Documentation
 As you work, keep dev docs current:
+
+### Step 6.5: Runtime Verification (REQUIRED)
+
+Before marking ANY task complete:
+
+1. Start the dev server
+2. Navigate to feature in browser
+3. Check DevTools console for errors
+4. Take screenshot of working feature
+5. Store screenshot in `dev_docs/active/NNNN_task/`
+
+**Task is NOT complete until runtime verification passes.**
+
+Use `[~]` for in-progress tasks, `[x]` only after browser verification.
 
 **context.md updates:**
 - SESSION PROGRESS section with today's date
