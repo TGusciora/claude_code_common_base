@@ -76,6 +76,66 @@ Before starting ANY task, ask yourself:
 
 ---
 
+## Coding Guidelines
+
+## 1. Think Before Coding
+
+**Don't assume. Don't hide confusion. Surface tradeoffs.**
+
+Before implementing:
+- State your assumptions explicitly. If uncertain, ask.
+- If multiple interpretations exist, present them - don't pick silently.
+- If a simpler approach exists, say so. Push back when warranted.
+- If something is unclear, stop. Name what's confusing. Ask.
+
+## 2. Simplicity First
+
+**Minimum code that solves the problem. Nothing speculative.**
+
+- No features beyond what was asked.
+- No abstractions for single-use code.
+- No "flexibility" or "configurability" that wasn't requested.
+- No error handling for impossible scenarios.
+- If you write 200 lines and it could be 50, rewrite it.
+
+Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
+
+## 3. Surgical Changes
+
+**Touch only what you must. Clean up only your own mess.**
+
+When editing existing code:
+- Don't "improve" adjacent code, comments, or formatting.
+- Don't refactor things that aren't broken.
+- Match existing style, even if you'd do it differently.
+- If you notice unrelated dead code, mention it - don't delete it.
+
+When your changes create orphans:
+- Remove imports/variables/functions that YOUR changes made unused.
+- Don't remove pre-existing dead code unless asked.
+
+The test: Every changed line should trace directly to the user's request.
+
+## 4. Goal-Driven Execution
+
+**Define success criteria. Loop until verified.**
+
+Transform tasks into verifiable goals:
+- "Add validation" → "Write tests for invalid inputs, then make them pass"
+- "Fix the bug" → "Write a test that reproduces it, then make it pass"
+- "Refactor X" → "Ensure tests pass before and after"
+
+For multi-step tasks, state a brief plan:
+```
+1. [Step] → verify: [check]
+2. [Step] → verify: [check]
+3. [Step] → verify: [check]
+```
+
+Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+
+---
+
 ## Checkpoint Protocol (STRICT)
 
 ### ALWAYS ask user before:
@@ -121,6 +181,73 @@ Create three files:
 
 > See [.claude/dev_docs/README.md](.claude/dev_docs/README.md) for detailed dev docs pattern documentation.
 
+### Task Completion Rule
+
+A task is **NOT complete** until ALL of the following are verified:
+
+1. ✅ All unit tests pass
+2. ✅ Feature accessible in running app (not just in tests)
+3. ✅ No console errors in browser DevTools
+4. ✅ Integration Verification Checklist completed in tasks.md
+5. ✅ Screenshot evidence stored in dev_docs folder (if UI task)
+
+**Markers:**
+- Use `[~]` for in-progress tasks
+- Use `[x]` only after runtime verification passes
+
+**Why:** Tests alone don't prove integration. A task with passing tests can still have missing router registration, undefined CSS variables, or orphaned pages that only appear at runtime.
+
+---
+
+## Context Management (Auto-Handoff)
+
+Claude Code has limited context window. When approaching limits, proactively save state to enable seamless resume.
+
+### Monitor Context Usage
+- Run `/context` periodically during long sessions to check usage percentage
+- Watch for context warnings in statusline (if enabled)
+- At **60-70% usage**, begin proactive handoff
+
+### At 60-70% Context Usage - PROACTIVE HANDOFF
+
+**CRITICAL:** Before compaction triggers automatically, save your work:
+
+1. **Update dev_docs** - Run `/dev-docs-update` or manually update:
+   - `NNNN-context.md`: Add session progress section with timestamp
+   - `NNNN-tasks.md`: Mark `[x]` completed items, `[~]` in-progress
+
+2. **Use this session progress template** in context.md:
+   ```markdown
+   ## Session Progress - YYYY-MM-DD HH:MM
+
+   ### Completed This Session
+   - [List of completed work]
+
+   ### Files Modified
+   - [List of changed files with brief description]
+
+   ### Key Decisions Made
+   - [Important architectural or implementation decisions]
+
+   ### Next Steps (Resume Here)
+   - [Immediate next actions - be specific]
+
+   ### Blockers/Notes
+   - [Any issues or important context for next session]
+   ```
+
+3. **Recommend clear to user**: "Context at X%. Recommend `/clear` and `/continue-dev` to resume with fresh context."
+
+### Resume After Context Reset
+- Use `/continue-dev` - it reads all task files and resumes work seamlessly
+- Check for `.last_session` marker in task directory for session end info
+- Continue from "Next Steps" in last session progress entry
+
+### Why This Matters
+- **Compaction is lossy** - Claude forgets files and may repeat corrected mistakes
+- **External state files are better** - dev_docs survive context resets perfectly
+- **"Compound, don't compact"** - Save to files, clear completely, resume with full signal
+
 ---
 
 ## Repo-Specific Guidelines
@@ -131,6 +258,22 @@ Create three files:
 - `src/CLAUDE.md` - Source code conventions
 - `tests/CLAUDE.md` - Testing patterns and fixtures
 - `docs/CLAUDE.md` - Documentation standards
+
+---
+
+## .claude/ Directory Structure
+
+| Directory | Purpose |
+|-----------|---------|
+| `agents/` | Custom subagent definitions (code-reviewer, error-debugger, test-writer, etc.) |
+| `commands/` | Slash commands (`/commit`, `/dev-docs`, `/discovery`, `/ralph`) |
+| `skills/` | Skill definitions (python-dev, k8s-dev, frontend-design, vue/react-best-practices) |
+| `hooks/` | Pre/post hook configurations for tool calls |
+| `scripts/` | Helper scripts (discovery_agent, ralph, next-task-number) |
+| `repo_specific/` | Project-specific docs and conventions |
+| `dev_docs/` | Dev docs templates and README |
+| `plans/` | Auto-generated plan files (gitignored) |
+| `audit_logs/` | Session audit logs (gitignored) |
 
 ---
 
