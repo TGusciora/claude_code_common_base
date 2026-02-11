@@ -34,6 +34,7 @@ This repository provides a **portable Claude Code configuration** that you can d
 | **Frontend Skills** | [Anthropic Skills Repository](https://github.com/anthropics/skills) - `frontend-design`, `theme-factory`, `webapp-testing`, `web-artifacts-builder` |
 | **React Best Practices** | [Vercel Agent Skills](https://github.com/vercel-labs/agent-skills/tree/main) - Performance optimization rules for React/Next.js |
 | **Vue Best Practices** | Adapted from React skill for Vue 3/Nuxt 3 ecosystem |
+| **Notification Sound** | Peon "Work Complete" sound from [Wowhead](https://www.wowhead.com/sound=6199/b-peonbuildingcomplete1) (Warcraft) |
 
 ---
 

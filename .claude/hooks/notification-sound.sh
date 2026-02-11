@@ -2,38 +2,25 @@
 # Cross-platform notification sound
 # Plays a notification sound on macOS, Linux, and Windows
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+SOUND_FILE="$SCRIPT_DIR/PeonBuildingComplete1.wav"
+
 play_sound() {
     case "$OSTYPE" in
         darwin*)
-            # macOS - use afplay with system sound
-            for i in 1 2; do
-                afplay /System/Library/Sounds/Funk.aiff 2>/dev/null
-            done
+            afplay "$SOUND_FILE" 2>/dev/null
             ;;
         linux*)
-            # Linux - try paplay (PulseAudio), then aplay (ALSA), then beep
             if command -v paplay &>/dev/null; then
-                for i in 1 2; do
-                    paplay /usr/share/sounds/freedesktop/stereo/complete.oga 2>/dev/null || \
-                    paplay /usr/share/sounds/sound-icons/prompt.wav 2>/dev/null
-                done
+                paplay "$SOUND_FILE" 2>/dev/null
             elif command -v aplay &>/dev/null; then
-                for i in 1 2; do
-                    aplay /usr/share/sounds/sound-icons/prompt.wav 2>/dev/null
-                done
-            elif command -v beep &>/dev/null; then
-                beep -f 800 -l 200 2>/dev/null
-                beep -f 800 -l 200 2>/dev/null
+                aplay "$SOUND_FILE" 2>/dev/null
             fi
             ;;
         msys*|cygwin*|mingw*)
-            # Windows (Git Bash, Cygwin, MSYS2)
-            powershell.exe -c "[console]::beep(800,200); [console]::beep(800,200)" 2>/dev/null
+            powershell.exe -c "(New-Object Media.SoundPlayer '$SOUND_FILE').PlaySync()" 2>/dev/null
             ;;
         *)
-            # Unknown - try terminal bell as fallback
-            printf '\a'
-            sleep 0.2
             printf '\a'
             ;;
     esac
